@@ -1,0 +1,21 @@
+{
+  "name": "Trabajo Practico Backend",
+  "authors": [
+    "ignaciosanabria <ignaciosanabria@outlook.com>"
+  ],
+  "description": "",
+  "main": "",
+  "license": "MIT",
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "^3.3.7",
+    "bootstrapvalidator": "^0.5.3"
+  }
+}
