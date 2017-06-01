@@ -1,0 +1,32 @@
+body {
+  margin: 0 auto;
+  color:#f0f0f0;
+  background:#3f51b5;
+  font-family:'Open Sans',sans-serif;
+}
+
+.CajaInicio {
+  width:750px;
+  margin:0 auto;
+  margin-top:8px;
+  margin-bottom:2%;
+  transition:opacity 1s;
+  -webkit-transition:opacity 1s;
+}
+
+
+
+.CajaInicio h1,h4{
+  background:rgb(14, 26, 112);
+  padding:20px 0;
+  font-size:140%;
+  font-weight:300;
+  text-align:center;
+  color:#fff;
+}
+
+.CajaInicio a {
+    color: red;
+    text-align: center;
+    font-family:'Open Sans',sans-serif;
+}
