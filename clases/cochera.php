@@ -1,5 +1,5 @@
 <?php
-require("BaseDeDatos/AccesoDatos.php");
+require("../bd/AccesoDatos.php");
 //PREGUNTAR SI HACE CREAR ESTA CLASE
 class Cochera
 {

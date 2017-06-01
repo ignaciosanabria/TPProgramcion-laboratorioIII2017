@@ -1,6 +1,5 @@
 <?php
-require("bd/AccesoDatos.php");
-
+require("../bd/AccesoDatos.php");
 class Usuario
 {
  public $id;

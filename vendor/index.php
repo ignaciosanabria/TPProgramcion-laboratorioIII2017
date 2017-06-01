@@ -2,8 +2,8 @@
 use \Psr\Http\Message\ServerRequestInterface as Request;
 use \Psr\Http\Message\ResponseInterface as Response;
 
-require 'vendor/autoload.php';
-require 'clases/usuario.php';
+require 'autoload.php';
+require '../clases/usuario.php';
 
 $app = new \Slim\App;
 // $app->get('/hello/{name}',$objetoAccesoDato = AccesoDatos::dameUnObjetoAcceso(); 
