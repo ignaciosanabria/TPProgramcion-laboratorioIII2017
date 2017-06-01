@@ -3,9 +3,10 @@ require("../bd/AccesoDatos.php");
 //PREGUNTAR SI HACE CREAR ESTA CLASE
 class Cochera
 {
+public $id;
 public $piso;
-public const $cocherasReservadas = 3;
-public $autos;
+public $estaLibre;
+public $prioridad;
 
 //Metodos Getters and Setters
 public function GetPiso()
@@ -18,18 +19,14 @@ public function SetPiso($valor)
     $this->piso = $valor;
 }
 
-public function GetCocherasReservadas()
-{
- return $this->cocherasReservadas;
-}
-
 //Constructor
 
-public function construct__($piso)
+public function construct__()
 {
-    $this->piso = $piso;
-    $this->autos = array();
+
 }
+
+public function construct__()
 
 //Metodo toString()
 
