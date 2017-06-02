@@ -1,4 +1,4 @@
 function Estacionar()
 {
-    window.location.replace("../enlaces/altaAuto.html");
+    window.location.replace("../enlaces/altaAuto.php");
 }

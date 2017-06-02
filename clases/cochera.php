@@ -9,6 +9,16 @@ public $estaLibre;
 public $prioridad;
 
 //Metodos Getters and Setters
+public function GetId()
+{
+    return $this->id;
+}
+
+public function SetId($valor)
+{
+    $this->id = $valor;
+}
+
 public function GetPiso()
 {
  return $this->piso;
@@ -19,26 +29,37 @@ public function SetPiso($valor)
     $this->piso = $valor;
 }
 
+public function GetEstaLibre()
+{
+    return $this->estaLibre;
+}
+
+public function SetEstaLibre($valor)
+{
+    $this->estaLibre = $valor;
+}
+
+public function GetPrioridad()
+{
+    return $this->prioridad;
+}
+
+public function SetPrioridad($valor)
+{
+    $this->prioridad = $valor;
+}
+
 //Constructor
 
 public function construct__()
 {
 
 }
-
-public function construct__()
-
 //Metodo toString()
 
 public function ToString()
-{
-
-  $mensaje = "Piso: ".$this->piso." - Cocheras Reservadas - ".$this->cocherasReservadas."<br>";
-  for($i=0;$i<count($this->autos);$i++)
-  {
-      $mensaje = $mensaje.$this->autos->ToString();
-  }
-  return $mensaje;
+{ 
+  return "Id: ".$this->id." - Piso: ".$this->piso." - Esta Libre: ".$this->estaLibre." - Prioridad: ".$this->prioridad."<br>";
 }
 
 public static function InsertarLaCochera($cochera)

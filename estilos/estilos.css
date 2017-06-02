@@ -30,3 +30,23 @@ body {
     text-align: center;
     font-family:'Open Sans',sans-serif;
 }
+
+.MiBotonUTN {
+  display:block;
+  text-transform: capitalize;
+  border:hidden;
+  width:100%;
+  background:#f50056;
+  margin:0 auto;
+  margin-top:1%;
+  padding:10px;
+  text-align:center;
+  text-decoration:none;
+  color:#fff;
+  cursor:pointer;
+  -moz-border-radius:7px;
+  -webkit-border-radius:7px;
+  border-radius:7px;
+  transition:background .3s;
+  -webkit-transition:background .3s;
+}

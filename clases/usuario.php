@@ -5,6 +5,7 @@ class Usuario
  public $id;
  public $mail;
  public $clave;
+ //FALTA AGREGAR ATRIBUTO esAdministrador -> bool
 
 //METODOS GETTERS
  public function GetId()

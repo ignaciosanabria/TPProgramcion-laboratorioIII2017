@@ -8,13 +8,19 @@
     <script src="../bower_components/jquery/dist/jquery.min.js"></script>
     <script src="../bower_components/bootstrapvalidator/dist/js/bootstrapValidator.min.js"></script>
     <script src="../bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="estilos/estilos.css">
+    <link rel="stylesheet" type="text/css" href="../estilos/estilos.css">
     <script type="text/javascript" src="../js/funcionesEstacionamiento.js">
     </script>
         <title>Estacionamiento</title>
     </head>
     <body>
+        <div class="container">
         <p>Aqui iria el codigo del boton estacionar y sacar</p>
-        <button onclick="Estacionar()">Estacionar</button>
+        <div class="CajaInicio animated bounceInRight">
+        <button class="glyphicon glyphicon-plus" onclick="Estacionar()">Estacionar</button>
+        <br>
+        <button class="glyphicon glyphicon-minus" onclick="Sacar()">Sacar</button>
+        </div><!-- Cierre Caja Inicio-->
+        </div><!--Cierre Container -->
     </body>
 </html>

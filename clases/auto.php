@@ -1,5 +1,5 @@
 <?php
-require("BaseDeDatos/AccesoDatos.php");
+require("../bd/AccesoDatos.php");
 class Auto
 {
  //Preguntar si hace poner el valor id o si es auto_increment no hace falta
@@ -7,8 +7,6 @@ public $id;
 public $patente;
 public $color;
 public $marca;
-//preguntar si hace falta poner el importe y la clase Cochera(En su defecto el piso)
-public $fecha_ingreso;
 
 //METODOS GETTERS & SETTERS
 public function GetId()
@@ -52,27 +50,9 @@ public function SetMarca($valor)
     $this->marca = $valor;
 }
 
-public function GetFechaIngreso()
-{
-    return $this->fecha_ingreso;
-}
-
-public function SetFechaIngreso($valor)
-{
- $this->fecha_ingreso = $valor;
-}
-
 public function construct__()
 {
 
-}
-
-public function construct__($patente, $color, $marca,$fecha_ingreso)
-{
-    $this->patente = $patente;
-    $this->color = $color;
-    $this->marca = $marca;
-    $this->fecha_ingreso = $fecha_ingreso;
 }
 
 
@@ -80,15 +60,14 @@ public function construct__($patente, $color, $marca,$fecha_ingreso)
 public static function InsertarElAuto($auto)
 {
 $objetoAccesoDato = AccesoDatos::dameUnObjetoAcceso();
-$consulta =$objetoAccesoDato->RetornarConsulta("INSERT INTO auto (patente, color, marca, fecha_ingreso)" . "VALUES('$auto->patente', '$auto->color','$auto->marca','$auto->fecha_ingreso)";
-$consulta->execute();		
-return $consulta;
+$consulta = $objetoAccesoDato->RetornarConsulta("INSERT INTO auto (patente, color, marca)"."VALUES('$auto->patente', '$auto->color','$auto->marca')");		
+return $consulta->execute();
 }
 
 public static function TraerTodosLosAutos()
 {
    $objetoAccesoDato = AccesoDatos::dameUnObjetoAcceso();
-   $consulta = $objetoAccesoDato->RetornarConsula("SELECT id as id, patente as patente, color as color , marca as marca , fecha_ingreso as fecha_ingreso from auto");
+   $consulta = $objetoAccesoDato->RetornarConsula("SELECT id as id, patente as patente, color as color , marca as marca from auto");
    $consulta->execute();
    return $consulta->fetchAll("auto");
 }
@@ -102,8 +81,33 @@ public static function TraerElAuto($idAuto)
     return $consulta->fetchObject("auto");
 }
 
-//FALTA BORRAR Y MODIFICAR
+public static function BorrarElAuto($idAuto)
+{
+    $objetoAccesoDato = AccesoDatos::dameUnObjetoAcceso();
+    $consulta = $objetoAccesoDato->RetornarConsulta("DELETE from auto WHERE id = '$idAuto'");
+    return $consulta->execute();
+}
 
+public static function ModificarElAuto($auto)
+{
+    $objetoAccesoDato = AccesoDatos::dameUnObjetoAcceso();
+    $consulta = $objetoAccesoDato->RetornarConsulta("UPDATE auto set patente = '$auto->patente' , color = '$auto->color' , marca = '$auto->marca' where id = '$auto->id' ");
+    return $consulta->execute();
+}
+
+public static function VerificarAuto($patente)
+{
+    $retorno = "error";
+    $arrayAutos = Auto::TraerTodosLosAutos();
+    foreach($arrayAutos as $auto)
+    {
+        if($auto->GetPatente() == $patente)
+        {
+            $retorno = "ok";
+        }
+    }
+  return $retorno;
+}
 
 
 }

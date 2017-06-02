@@ -16,18 +16,24 @@
     <body>
         <div class="container">
          <div class="page-header">
-         <h1>Ingreso de vehículos</h1>
+         <h1>Ingreso de vehículos al Estacionamiento</h1>
          </div><!--Cierre Page Header -->
          
          <div class="CajaInicio animated bounceInRight">
-			<h1>ALTA-LISTADO - con archivos -</h1>
+			<h1>Ingrese datos del vehículo con la fecha de ingreso y el numero de cochera</h1>
+
+            <?php 
+            $lala = "ALGO";
+            echo $lala; ?>
 
 			<form id="FormIngreso" method="post" enctype="multipart/form-data" action="administracion.php" >
 				<input type="text" name="patente" id="patente" placeholder="Ingrese patente" />
 				<input type="text" name="marca" id="marca" placeholder="Ingrese marca"  />
                 <input type="text" name="color" id="color" placeholder="Ingrese color" />
                 <!-- FALTA HACER SELECT OPTIONS CON COCHERAS PRECARGADAS DESDE DATABASE -->
-                <input type="datetime" name="fecha_ingrese" id="fecha_ingreso" />
+                <input type="datetime" name="fecha_ingreso" id="fecha_ingreso" />
+                
+                <input type="button" class="btn btn-danger" name="volverAtras" onclick="VolverAtras()" />
 				<input type="button" class="MiBotonUTN" name="guardar" />
 			</form>
 		
