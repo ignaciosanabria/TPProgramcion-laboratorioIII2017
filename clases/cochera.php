@@ -1,6 +1,5 @@
 <?php
 require("../bd/AccesoDatos.php");
-//PREGUNTAR SI HACE CREAR ESTA CLASE
 class Cochera
 {
 public $id;
@@ -62,25 +61,29 @@ public function ToString()
   return "Id: ".$this->id." - Piso: ".$this->piso." - Esta Libre: ".$this->estaLibre." - Prioridad: ".$this->prioridad."<br>";
 }
 
-public static function InsertarLaCochera($cochera)
-	{
-$objetoAccesoDato = AccesoDatos::dameUnObjetoAcceso();
-
-$consulta =$objetoAccesoDato->RetornarConsulta("INSERT INTO cochera (piso)" . "VALUES('$cochera->piso')");
-$consulta->execute();		
-//return $objetoAccesoDato->RetornarUltimoIdInsertado();
-return $consulta;
-	}
-
-    public static function TraerElProducto($codBarra)
+public static function TraerLaCochera($idCochera)
 {
-	$objetoAccesoDato = AccesoDatos::dameUnObjetoAcceso();
-	$consulta = $objetoAccesoDato->RetornarConsulta("SELECT * FROM producto where codigo_barra = '$codBarra'");
-	$consulta->execute();
-	$productoRetorno = $consulta->fetchObject('producto');
-	return $productoRetorno;
+    $objetoAccesoDato = AccesoDatos::dameUnObjetoAcceso();
+    $consulta = $objetoAccesoDato->RetornarConsulta("SELECT * from cochera where id= '$idCochera'");
+    $consulta->execute();
+    return $consulta->fetchObject('cochera');
 }
 
+public static function TraerTodasLasCocheras()
+{
+  $objetoAccesoDato = AccesoDatos::dameUnObjetoAcceso();
+$consulta = $objetoAccesoDato->RetornarConsulta("SELECT id as id, piso as piso, estaLibre as estaLibre, prioridad as prioridad from cochera");
+$consulta->execute();
+ return $consulta->fetchAll(PDO::FETCH_CLASS,'cochera');
+}
+
+// public static function lista()
+// {
+// $objetoAccesoDato = AccesoDatos::dameUnObjetoAcceso();
+//   $consulta = $objetoAccesoDato->RetornarConsulta("SELECT * from cochera");
+// $consulta->execute();
+// return $consulta->fetchAll('cochera');
+// }
 
 }
 ?>

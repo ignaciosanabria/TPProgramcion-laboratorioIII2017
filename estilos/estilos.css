@@ -50,3 +50,11 @@ body {
   transition:background .3s;
   -webkit-transition:background .3s;
 }
+
+input
+{
+  color: black;
+}
+option{
+  color: black;
+}
