@@ -95,19 +95,6 @@ public static function ModificarElAuto($auto)
     return $consulta->execute();
 }
 
-public static function VerificarAuto($patente)
-{
-    $retorno = "error";
-    $arrayAutos = Auto::TraerTodosLosAutos();
-    foreach($arrayAutos as $auto)
-    {
-        if($auto->GetPatente() == $patente)
-        {
-            $retorno = "ok";
-        }
-    }
-  return $retorno;
-}
 
 
 }

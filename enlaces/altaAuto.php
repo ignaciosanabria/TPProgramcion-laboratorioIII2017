@@ -36,13 +36,20 @@ require("../clases/cochera.php");
                 <label class="control-label">Color</label><input type="text" name="color" id="color" placeholder="Ingrese color" />
                 <!-- FALTA HACER SELECT OPTIONS CON COCHERAS PRECARGADAS DESDE DATABASE -->
                 <br>
-                <label class="control-label">Fecha de Ingreso</label><input type="datetime" name="fecha_ingreso" id="fecha_ingreso" />
+                <label class"control-label">Fecha de Ingreso</label>
+                <div class="dateContainer">
+              <div class="input-group date" id="datetimePicker">
+                <input type="text" class="form-control" name="fecha_ingreso" id="fecha_ingreso" placeholder="YYYY/DD/MM h:m" />
+                <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+               </div>
+             </div>
+
                 <br>
                 <label class="control-label">Numero de cochera</label>
-                <select id="cochera">
+                <select id="idCochera">
                 <option value="0">Seleccionar</option>
                 <?php
-                 $arrayCocheras = Cochera::TraerTodasLasCocheras();
+                 $arrayCocheras = Cochera::TraerTodasLasCocherasLibres();
                  //var_dump($arrayCocheras);
                  foreach($arrayCocheras as $cocheras)
                  {
@@ -57,8 +64,6 @@ require("../clases/cochera.php");
 			</form>
 		
 		</div>
-
-        <p>Formulario Alta</p>
         </div><!-- Cierre Container-->
     </body>
 </html>

@@ -1,6 +1,6 @@
 $(document).ready(function () {
-
-    $("#loginForm").bootstrapValidator({
+$('#datetimePicker').datetimepicker();
+    $("#FormIngreso").bootstrapValidator({
         message: 'Este valor no es valido',
         feedbackIcons: {
             valid: 'glyphicon glyphicon-ok',
@@ -12,14 +12,44 @@ $(document).ready(function () {
             patente: {
                 validators: {
                     notEmpty: {
-                        message: 'El mail del usuario es requerido'
+                        message: 'La patente es requerida'
                     },
+                    regexp: {
+                        regexp: '/[A-Z]{3}[0-9]{3}$/',
+                        message: 'La patente debe contener tres letras y tres numeros'
+                    }
+                    
                 }
             },
-            clave: {
+           marca: {
                 validators: {
                     notEmpty: {
-                        message: 'La contraseña es requerida'
+                        message: 'La marca es requerida'
+                    }
+                }
+            },
+            color: {
+                validators: {
+                    notEmpty: {
+                        message : 'El color es requerido'
+                    }
+                }
+            },
+            fecha_ingreso: {
+              validators: {
+                  notEmpty: {
+                      message : 'La fecha de ingreso es requerida'
+                  },
+                    date: {
+                        format: 'YYYY/DD/MM h:m',
+                        message: 'La fecha no es válida'
+                    }
+              }
+            },
+            idCochera: {
+                validators: {
+                    notEmpty: {
+                        message : 'La cochera es requerida'
                     }
                 }
             }

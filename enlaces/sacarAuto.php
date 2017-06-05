@@ -1,7 +1,11 @@
+<?php
+require("../clases/cochera.php");
+?>
+
 <!doctype html>
 <html>
     <head>
-    <meta charset="UTF-8">
+        <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="../bower_components/bootstrap/dist/css/bootstrap.css" rel="stylesheet">
     <link href="../bower_components/bootstrapValidator/dist/css/bootstrapValidator.css" rel="stylesheet">
@@ -9,17 +13,13 @@
     <script src="../bower_components/bootstrapvalidator/dist/js/bootstrapValidator.min.js"></script>
     <script src="../bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
     <link rel="stylesheet" type="text/css" href="../estilos/estilos.css">
-    <script type="text/javascript" src="../js/funcionesEstacionamiento.js">
+    <script type="text/javascript" src="../js/funcionesAuto.js">
     </script>
-        <title>Estacionamiento</title>
+    <script type="text/javascript" src="../js/validadorAutoOperacion.js">
+    </script>
+        <title>Ingresar Auto</title>
     </head>
     <body>
-        <div class="container">
-        <div class="CajaInicio animated bounceInRight">
-        <button class="btn btn-primary glyphicon glyphicon-plus" onclick="Estacionar()">Estacionar</button>
-        <br>
-        <button class="btn btn-primary glyphicon glyphicon-minus" onclick="Sacar()">Sacar</button>
-        </div><!-- Cierre Caja Inicio-->
-        </div><!--Cierre Container -->
-    </body>
+        <p>Aqui iria el ingreso de patente para salir del estacionamiento</p>
+        </body>
 </html>

@@ -63,7 +63,7 @@ public function ToString()
 
 public static function TraerLaCochera($idCochera)
 {
-    $objetoAccesoDato = AccesoDatos::dameUnObjetoAcceso();
+    $objetoAccesoDato = AccesoDatos::DameUnObjetoAcceso();
     $consulta = $objetoAccesoDato->RetornarConsulta("SELECT * from cochera where id= '$idCochera'");
     $consulta->execute();
     return $consulta->fetchObject('cochera');
@@ -71,19 +71,19 @@ public static function TraerLaCochera($idCochera)
 
 public static function TraerTodasLasCocheras()
 {
-  $objetoAccesoDato = AccesoDatos::dameUnObjetoAcceso();
+  $objetoAccesoDato = AccesoDatos::DameUnObjetoAcceso();
 $consulta = $objetoAccesoDato->RetornarConsulta("SELECT id as id, piso as piso, estaLibre as estaLibre, prioridad as prioridad from cochera");
 $consulta->execute();
  return $consulta->fetchAll(PDO::FETCH_CLASS,'cochera');
 }
 
-// public static function lista()
-// {
-// $objetoAccesoDato = AccesoDatos::dameUnObjetoAcceso();
-//   $consulta = $objetoAccesoDato->RetornarConsulta("SELECT * from cochera");
-// $consulta->execute();
-// return $consulta->fetchAll('cochera');
-// }
+public static function TraerTodasLasCocherasLibres()
+{
+    $objetoAccesoDato = AccesoDatos::DameUnObjetoAcceso();
+    $consulta = $objetoAccesoDato("SELECT id as id, piso as piso, estaLibre as estaLibre, prioridad as prioridad from cochera where estaLibre = '1'");
+    $consulta->execute();
+    return $consulta->fetchAll(PDO::FETCH_CLASS,'cochera');
+}
 
 }
 ?>
