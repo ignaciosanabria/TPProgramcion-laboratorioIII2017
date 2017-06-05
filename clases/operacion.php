@@ -79,7 +79,7 @@ class Operacion
 
     public static function TraerTodasLasOperaciones()
     {
-        $objetoAccesoDato = AccesoDatos::DameUnObjetoAcceso();
+        $objetoAccesoDato = AccesoDatos::dameUnObjetoAcceso();
         $consulta = $objetoAccesoDato->RetornarConsulta("SELECT id as id, patente as patente, fecha_ingreso as fecha_ingreso, fecha_salida as fecha_salida, importe as importe, idCochera as idCochera from operacion");
         $consulta->execute();
         return $consulta->fetchAll(PDO::FETCH_CLASS,'operacion');
@@ -87,7 +87,7 @@ class Operacion
 
     public static function TraerLaOperacion($idOperacion)
     {
-        $objetoAccesoDato = AccesoDatos::DameUnObjetoAcceso();
+        $objetoAccesoDato = AccesoDatos::dameUnObjetoAcceso();
         $consulta = $objetoAccesoDato->RetornarConsulta("SELECT * from operacion");
         $consulta->execute();
         return $consulta->fetchObject(PDO::FETCH_CLASS,'operacion');
@@ -95,7 +95,7 @@ class Operacion
 
     public static function InsertarLaOperacion($operacion)
     {
-        $objetoAccesoDato = AccesoDatos::DameUnObjetoAcceso();
+        $objetoAccesoDato = AccesoDatos::dameUnObjetoAcceso();
         $consulta = $objetoAccesoDato->RetornarConsulta("INSERT INTO operacion (patente, fecha_ingreso, fecha_salida, importe, idCochera)"."VALUES('$operacion->patente','$operacion->fecha_ingreso','$operacion->fecha_salida','$operacion->importe','$operacion->idCochera')");
         return $consulta->execute();
     }
@@ -116,7 +116,7 @@ class Operacion
 
     public static function TraerLaOperacionPorPatente($patente)
     {
-        $objetoAccesoDato = AccesoDatos::DameUnObjetoAcceso();
+        $objetoAccesoDato = AccesoDatos::dameUnObjetoAcceso();
         $consulta = $objetoAccesoDato->RetornarConsulta("SELECT * from operacion where patente = '$patente' ");
         $consulta->execute();
         return $consulta->fetchObject(PDO::FETCH_CLASS,'operacion');

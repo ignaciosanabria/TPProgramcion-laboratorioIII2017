@@ -49,8 +49,8 @@ class Usuario
 
  	public static function TraerTodosLosUsuarios()
 	{
-	 $objAcceso = AccesoDatos::DameUnObjetoAcceso();
-	 $consulta = $objAcceso->RetornarConsulta("SELECT id AS id, mail AS mail, clave AS clave FROM usuario");
+	$objetoAccesoDato = AccesoDatos::dameUnObjetoAcceso();
+	$consulta = $objetoAccesoDato->RetornarConsulta("SELECT id AS id, mail AS mail, clave AS clave FROM usuario");
 	 //UNA VEZ PUESTA LA CONSULTA HAY QUE EJECUTARLA
 	 $consulta->execute();
 	 //$datos = $consulta->fetchAll();
@@ -60,7 +60,7 @@ class Usuario
 
 public static function InsertarElUsuarioParametros($user)
 	{
-$objetoAccesoDato = AccesoDatos::DameUnObjetoAcceso();
+$objetoAccesoDato = AccesoDatos::dameUnObjetoAcceso();
 
 $consulta =$objetoAccesoDato->RetornarConsulta("INSERT INTO usuario (mail, clave)" . "VALUES($user->mail','$user->clave', '$user->estado')");
 $consulta->execute();		
@@ -70,7 +70,7 @@ return $consulta;
 
 public static function BorrarElUsuario($id)
 {
-	$objetoAccesoDato = AccesoDatos::DameUnObjetoAcceso();
+	$objetoAccesoDato = AccesoDatos::dameUnObjetoAcceso();
 	$consulta = $objetoAccesoDato->RetornarConsulta("DELETE FROM usuario where id = '$id'");
 	$consulta->execute();
 	//return $consulta->rowCount();
@@ -79,7 +79,7 @@ public static function BorrarElUsuario($id)
 
 public static function TraerElUsuario($id)
 {
-	$objetoAccesoDato = AccesoDatos::DameUnObjetoAcceso();
+	$objetoAccesoDato = AccesoDatos::dameUnObjetoAcceso();
 	$consulta = $objetoAccesoDato->RetornarConsulta("SELECT * FROM usuario where id = '$id'");
 	$consulta->execute();
 	$usuarioRetorno = $consulta->fetchObject('usuario');
@@ -88,7 +88,7 @@ public static function TraerElUsuario($id)
 
 public static function ModificarElUsuario($user)
 {
-	       $objetoAccesoDato = AccesoDatos::DameUnObjetoAcceso(); 
+	       $objetoAccesoDato = AccesoDatos::dameUnObjetoAcceso(); 
 			/*$consulta =$objetoAccesoDato->RetornarConsulta("
 				update persona 
 				set nombre=:nombre,
