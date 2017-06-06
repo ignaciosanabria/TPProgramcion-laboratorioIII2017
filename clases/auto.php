@@ -1,5 +1,5 @@
 <?php
-require("../bd/AccesoDatos.php");
+include_once("../bd/AccesoDatos.php");
 class Auto
 {
  //Preguntar si hace poner el valor id o si es auto_increment no hace falta
@@ -59,7 +59,7 @@ public function construct__()
 //Insertamos un auto en la base de datos
 public static function InsertarElAuto($auto)
 {
-$objetoAccesoDato = AccesoDatos::dameUnObjetoAcceso();
+$objetoAccesoDato = AccesoDatos::DameUnObjetoAcceso();
 $consulta = $objetoAccesoDato->RetornarConsulta("INSERT INTO auto (patente, color, marca)"."VALUES('$auto->patente', '$auto->color','$auto->marca')");		
 return $consulta->execute();
 }

@@ -1,5 +1,5 @@
 <?php
-require('../bd/AccesoDatos.php');
+include_once('../bd/AccesoDatos.php');
 class Operacion
 {
     public $id;
@@ -68,7 +68,7 @@ class Operacion
 
     public function SetIdCochera($valor)
     {
-        $this->valor = $valor;
+        $this->idCochera = $valor;
     }
 
     //Constructor
@@ -88,14 +88,14 @@ class Operacion
     public static function TraerLaOperacion($idOperacion)
     {
         $objetoAccesoDato = AccesoDatos::dameUnObjetoAcceso();
-        $consulta = $objetoAccesoDato->RetornarConsulta("SELECT * from operacion");
+        $consulta = $objetoAccesoDato->RetornarConsulta("SELECT * from operacion where'$idOperacion'");
         $consulta->execute();
         return $consulta->fetchObject(PDO::FETCH_CLASS,'operacion');
     }
 
     public static function InsertarLaOperacion($operacion)
     {
-        $objetoAccesoDato = AccesoDatos::dameUnObjetoAcceso();
+        $objetoAccesoDato = AccesoDatos::DameUnObjetoAcceso();
         $consulta = $objetoAccesoDato->RetornarConsulta("INSERT INTO operacion (patente, fecha_ingreso, fecha_salida, importe, idCochera)"."VALUES('$operacion->patente','$operacion->fecha_ingreso','$operacion->fecha_salida','$operacion->importe','$operacion->idCochera')");
         return $consulta->execute();
     }

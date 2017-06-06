@@ -7,25 +7,25 @@ function VolverAtras()
 function IngresarAutoOperacion()
 {
     var funcionAjax = $.ajax({
-    method : 'POST',
-    data : {patente:$("#patente").val(),marca:$("#marca").val(),color:$("#color"),idCochera:$("#idCochera").val(),fecha_ingreso:$("#fecha_ingreso").val()},
-    url : "../vendor/index.php/IngresarAutoOperacion"
+    url : '../enlaces/IngresoAutoOperacion.php',
+    method : 'post',
+    data : {patente:$("#patente").val(),marca:$("#marca").val(),color:$("#color").val(),idCochera:$("#idCochera").val(),fecha_ingreso:$("#fecha_ingreso").val()},
 });
   funcionAjax.then(funcionOkIngreso, funcionErrorIngreso);
 }
 
-function funcionOkIngreso()
+function funcionOkIngreso(dato)
 {
-    if(dato.status == 200)
+    if(dato == 200)
     {
         alert("El auto fue ingresado correctamente");
         window.location.replace("../enlaces/estacionamiento.html");
     }
 }
 
-function funcionErrorIngreso()
+function funcionErrorIngreso(dato)
 {
-    if(dato.status == 400)
+    if(dato == 400)
     {
         alert("ERROR. Hubo un error en el ingreso del auto al estacionamiento");
     }
@@ -40,4 +40,19 @@ function SacarAuto()
     url : "../vendor/index.php/"
     });
     funcionAjax.then(funcionSacarOk,funcionSacarError);
+}
+
+function funcionSacarOk(dato)
+{
+
+}
+
+function funcionSacarError(dato)
+{
+    
+}
+
+function Algo()
+{
+    alert("patente:"+$("#patente").val()+",marca:"+$("#marca").val()+",color:"+$("#color").val()+",idCochera:"+$("#idCochera").val()+",fecha_ingreso:"+$("#fecha_ingreso").val());
 }

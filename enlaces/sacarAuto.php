@@ -1,5 +1,5 @@
 <?php
-require("../clases/cochera.php");
+require("../clases/operacion.php");
 ?>
 
 <!doctype html>
@@ -15,11 +15,32 @@ require("../clases/cochera.php");
     <link rel="stylesheet" type="text/css" href="../estilos/estilos.css">
     <script type="text/javascript" src="../js/funcionesAuto.js">
     </script>
-    <script type="text/javascript" src="../js/validadorAutoOperacion.js">
+    <script type="text/javascript" src="../js/validadorSacar.js">
     </script>
-        <title>Ingresar Auto</title>
+        <title>Ingresar Patente</title>
     </head>
     <body>
-        <p>Aqui iria el ingreso de patente para salir del estacionamiento</p>
+        <div class="container">
+            <div class="page-header">
+              <h1>Ingrese la patente del auto que desea sacar</h1>
+            </div>
+             <div class="row">
+                  <div class="col-lg-12">
+                        <div class="CajaInicio animated bounceInRight">
+                         <form id="FormSacar" method="post" class="form-horizontal" action="" >
+                          <div class="form-group">
+                          <label for="" class="col-lg-4 control-label">Correo Electrónico</label>
+                         <div class="col-lg-6">
+                          <input type="text" class="form-control" name="patente" id="patente" placeholer="Ingrese patente">
+                          <?php
+                         $dateTime = new DateTime('now', new DateTimeZone('America/Argentina/Buenos_Aires'));
+                         $fecha_salida = $dateTime->format("m/d/y  H:i A");
+                          ?>
+                          <input type="hidden" name="fecha_salida" value="<?php echo $fecha_salida;?>"/>
+                      </div>
+                      </form>
+                    </div>
+                 </div>
+            </div>
         </body>
 </html>

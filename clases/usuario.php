@@ -1,5 +1,5 @@
 <?php
-require("../bd/AccesoDatos.php");
+include_once("../bd/AccesoDatos.php");
 class Usuario
 {
  public $id;

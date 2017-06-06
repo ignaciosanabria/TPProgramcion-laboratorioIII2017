@@ -58,3 +58,8 @@ input
 option{
   color: black;
 }
+
+::-webkit-input-placeholder { /* Safari, Chrome and Opera */
+  color: black;
+}
+
