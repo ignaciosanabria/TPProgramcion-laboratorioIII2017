@@ -116,10 +116,17 @@ class Operacion
 
     public static function TraerLaOperacionPorPatente($patente)
     {
-        $objetoAccesoDato = AccesoDatos::dameUnObjetoAcceso();
-        $consulta = $objetoAccesoDato->RetornarConsulta("SELECT * from operacion where patente = '$patente' ");
+        $objetoAccesoDato = AccesoDatos::DameUnObjetoAcceso();
+        $consulta = $objetoAccesoDato->RetornarConsulta("SELECT id as id, patente as patente, fecha_ingreso as fecha_ingreso, fecha_salida as fecha_salida, importe as importe, idCochera as idCocheras from operacion where patente = '$patente' ");
         $consulta->execute();
-        return $consulta->fetchObject(PDO::FETCH_CLASS,'operacion');
+        return $consulta->fetchObject('operacion');
+    }
+
+    public static function ModificarLaOperacionACerrar($operacion)
+    {
+      $objetoAccesoDato = AccesoDatos::DameUnObjetoAcceso();
+      $consulta = $objetoAccesoDato->RetornarConsulta("UPDATE operacion set fecha_salida = '$operacion->fecha_salida', importe = '$operacion->importe'");
+      return $consulta->execute();
     }
 
 
