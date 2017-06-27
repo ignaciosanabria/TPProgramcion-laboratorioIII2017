@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Lista de Empleados</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="../bower_components/bootstrap/dist/css/bootstrap.css" rel="stylesheet">
+    <link href="../bower_components/bootstrapValidator/dist/css/bootstrapValidator.css" rel="stylesheet">
+    <script src="../bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="../bower_components/bootstrapvalidator/dist/js/bootstrapValidator.min.js"></script>
+    <script src="../bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="../estilos/estilos.css">
+    <script type="text/javascript" src="../js/funcionesEmpleado.js"></script>
+</head>
+<body>
+	<a class="btn btn-info" href="estacionamiento.html">
+	<span class="glyphicon glyphicon-home"></span>
+	Volver al Menú Principal</a>
+
+	<div class="container">
+		<div class="page-header">
+			<h1>Empleados del Estacionamiento</h1>      
+		</div>
+		<div class="CajaInicio animated bounceInRight">
+			<h1>Listado de EMPLEADOS</h1>
+
+
+            <table class='table'>
+		<thead>
+			<tr>
+				<th>  LEGAJO </th>
+				<th>  NOMBRE     </th>
+				<th>  MAIL       </th>
+				<th>  CLAVE     </th>
+				<th> CANTIDAD DE OPERACIONES </th>
+				<th> FECHA DE INGRESO </th>
+				<th> TURNO </th>
+				<th> VER OPERACIONES </th>
+				<th>  BORRAR  </th>
+                <th>  MODIFICAR </th>
+			</tr> 
+		</thead>
+        <thead id="empleados">
+
+        </thead>
+
+            </table>
+
+
+
+        <a href="formAltaEmpleado.html" class="btn btn-primary">
+<span class="glyphicon glyphicon-plus"></span>
+Si desea ingresar un empleado haga click aquí</a>
+		</div>
+	</div>
+</body>
+</html>

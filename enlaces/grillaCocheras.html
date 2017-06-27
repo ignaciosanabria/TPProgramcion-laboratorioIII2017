@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Lista de Cocheras</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="../bower_components/bootstrap/dist/css/bootstrap.css" rel="stylesheet">
+    <link href="../bower_components/bootstrapValidator/dist/css/bootstrapValidator.css" rel="stylesheet">
+    <script src="../bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="../bower_components/bootstrapvalidator/dist/js/bootstrapValidator.min.js"></script>
+    <script src="../bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="../estilos/estilos.css">
+    <script type="text/javascript" src="../js/funcionesCochera.js"></script>
+    <script type="text/javascript" src="../js/CargarCocheras.js"></script>
+</head>
+<body>
+	<a class="btn btn-info" href="estacionamiento.html">
+    <span class="glyphicon glyphicon-home"></span>
+    Volver al Menú Principal</a>
+
+	<div class="container">
+		<div class="page-header">
+			<h1>Cocheras del Estacionamiento</h1>      
+		</div>
+		<div class="CajaInicio animated bounceInRight">
+			<h1>Listado de COCHERAS</h1>
+<table class='table'>
+		<thead>
+			<tr>
+                <th>  NUMERO </th>
+				<th>  PISO    </th>
+				<th>  ESTA LIBRE       </th>
+				<th>  PRIORIDAD     </th>
+				<th> VECES DE USO </th>
+				<th>  BORRAR  </th>
+                <th>  MODIFICAR </th>
+			</tr> 
+		</thead>
+        <thead id="cocheras">
+        </thead>
+        </table>
+
+        <a href="formAltaCochera.html" class="btn btn-primary">
+<span class="glyphicon glyphicon-plus"></span>
+Si desea ingresar una cochera haga click aquí</a>
+		</div>
+	</div>
+</body>
+</html>

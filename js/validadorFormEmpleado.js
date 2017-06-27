@@ -1,6 +1,6 @@
 $(document).ready(function () {
 
-    $("#loginForm").bootstrapValidator({
+    $("#FormIngresoEmpleado").bootstrapValidator({
         message: 'Este valor no es valido',
         feedbackIcons: {
             valid: 'glyphicon glyphicon-ok',
@@ -9,6 +9,23 @@ $(document).ready(function () {
         },
 
         fields: {
+           legajo : {
+                   validators: {
+                      integer : {
+                          message : 'El número que selecciono no es válido'
+                      },
+                      notEmpty : {
+                          message : 'El numero de legajo es requerido'
+                      }
+                   }
+           },
+           nombre: {
+                   validators: {
+                       notEmpty : {
+                           message : 'El nombre es requerido'
+                       }
+                   }
+           },
             mail: {
                 validators: {
                     notEmpty: {
@@ -25,14 +42,7 @@ $(document).ready(function () {
                         message: 'La contraseña es requerida'
                     }
                 }
-            },
-          tipo : {
-              validators : {
-                   notEmpty : {
-                       message : 'Por favor seleccione un casilla'
-                   }
-              }
-          }
+            }
         }
     });
 

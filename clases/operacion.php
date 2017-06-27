@@ -8,6 +8,7 @@ class Operacion
     public $fecha_salida;
     public $importe;
     public $idCochera;
+    public $idEmpleado;
    
     //METODOS GETTERS AND SETTERS
 
@@ -71,6 +72,16 @@ class Operacion
         $this->idCochera = $valor;
     }
 
+    public function GetIdEmpleado()
+    {
+        return $this->idEmpleado;
+    }
+
+    public function SetIdEmpleado($valor)
+    {
+        $this->idEmpleado = $valor;
+    }
+
     //Constructor
     public function __construct()
     {
@@ -80,7 +91,7 @@ class Operacion
     public static function TraerTodasLasOperaciones()
     {
         $objetoAccesoDato = AccesoDatos::dameUnObjetoAcceso();
-        $consulta = $objetoAccesoDato->RetornarConsulta("SELECT id as id, patente as patente, fecha_ingreso as fecha_ingreso, fecha_salida as fecha_salida, importe as importe, idCochera as idCochera from operacion");
+        $consulta = $objetoAccesoDato->RetornarConsulta("SELECT id as id, patente as patente, fecha_ingreso as fecha_ingreso, fecha_salida as fecha_salida, importe as importe, idCochera as idCochera, idEmpleado as idEmpleado from operacion");
         $consulta->execute();
         return $consulta->fetchAll(PDO::FETCH_CLASS,'operacion');
     }
@@ -96,7 +107,7 @@ class Operacion
     public static function InsertarLaOperacion($operacion)
     {
         $objetoAccesoDato = AccesoDatos::DameUnObjetoAcceso();
-        $consulta = $objetoAccesoDato->RetornarConsulta("INSERT INTO operacion (patente, fecha_ingreso, fecha_salida, importe, idCochera)"."VALUES('$operacion->patente','$operacion->fecha_ingreso','$operacion->fecha_salida','$operacion->importe','$operacion->idCochera')");
+        $consulta = $objetoAccesoDato->RetornarConsulta("INSERT INTO operacion (patente, fecha_ingreso, fecha_salida, importe, idCochera, idEmpleado)"."VALUES('$operacion->patente','$operacion->fecha_ingreso','$operacion->fecha_salida','$operacion->importe','$operacion->idCochera','$operacion->idEmpleado')");
         return $consulta->execute();
     }
 
@@ -117,7 +128,7 @@ class Operacion
     public static function TraerLaOperacionPorPatente($patente)
     {
         $objetoAccesoDato = AccesoDatos::DameUnObjetoAcceso();
-        $consulta = $objetoAccesoDato->RetornarConsulta("SELECT id as id, patente as patente, fecha_ingreso as fecha_ingreso, fecha_salida as fecha_salida, importe as importe, idCochera as idCocheras from operacion where patente = '$patente' ");
+        $consulta = $objetoAccesoDato->RetornarConsulta("SELECT id as id, patente as patente, fecha_ingreso as fecha_ingreso, fecha_salida as fecha_salida, importe as importe, idCochera as idCochera, idEmpleado as idEmpleado from operacion where patente = '$patente' ");
         $consulta->execute();
         return $consulta->fetchObject('operacion');
     }
@@ -125,9 +136,12 @@ class Operacion
     public static function ModificarLaOperacionACerrar($operacion)
     {
       $objetoAccesoDato = AccesoDatos::DameUnObjetoAcceso();
-      $consulta = $objetoAccesoDato->RetornarConsulta("UPDATE operacion set fecha_salida = '$operacion->fecha_salida', importe = '$operacion->importe'");
+      $consulta = $objetoAccesoDato->RetornarConsulta("UPDATE operacion set fecha_salida = '$operacion->fecha_salida', importe = '$operacion->importe' where id = '$operacion->id'");
       return $consulta->execute();
     }
+
+
+    
 
 
 }

@@ -1,0 +1,80 @@
+<!doctype html>
+<html>
+    <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="../bower_components/bootstrap/dist/css/bootstrap.css" rel="stylesheet">
+    <link href="../bower_components/bootstrapValidator/dist/css/bootstrapValidator.css" rel="stylesheet">
+    <script src="../bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="../bower_components/bootstrapvalidator/dist/js/bootstrapValidator.min.js"></script>
+    <script src="../bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="../estilos/estilos.css">
+    <script type="text/javascript" src="../js/funcionesEmpleado.js"></script>
+    <script type="text/javascript" src ="../js/validadorFormEmpleado.js"></script>
+    <title>Ingresar Empleado Nuevo</title>
+    </head>
+    <body>
+         <div class="container">
+         <div class="page-header">
+         <h1>Ingrese los datos del Empleado nuevo</h1>
+         </div>
+         <div class="CajaInicio animated bounceInRight">
+         <form action="" enctype="multipart/form-data" id="FormIngresoEmpleado" method="POST" class="form-horizontal">
+        <p>Por favor rellene los campos para ingresar el empleado nuevo</p>
+        <div class="form-group">
+            <label for="" class="col-lg-4 control-label">Legajo</label>
+            <div class="col-lg-6">
+                <input type="number" class="form-control" name="legajo" id="legajo">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="" class="col-lg-4 control-label">Nombre</label>
+            <div class="col-lg-6">
+                <input type="text" class="form-control" name="nombre" id="nombre">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="" class="col-lg-4 control-label">Correo Electrónico</label>
+            <div class="col-lg-6">
+                <input type="email" class="form-control" name="mail" id="mail">
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            <label for="" class="col-lg-4 control-label">Clave</label>
+            <div class="col-lg-6">
+                <input type="password" class="form-control" name="clave" id="clave">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="" class="col-lg-4 control-label">Turno</label>
+            <div class="col-lg-6">
+                 <select class="form-control" name="turno" id="turno">
+                 <option value="null">Seleccionar</option>
+                  <option value="mañana">Mañana</option>
+                  <option value="tarde">Tarde</option>
+                  <option value="noche">Noche</option>
+                 </select>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-5 col-md-offset-3">
+                <button onclick="IngresarEmpleado()" class="btn btn-danger">Aceptar</button>
+                <a href="grillaEmpleados.html" class="btn btn-primary">
+                <span class="glyphicon glyphicon-plus"></span>                                                
+                Cancelar</a>
+            </div>
+
+
+        </div>
+
+         </form>
+         </div>
+         </div><!--Cierre Container -->
+    </body>
+</html>

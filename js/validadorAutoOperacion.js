@@ -15,7 +15,7 @@ $('#datetimePicker').datetimepicker();
                         message: 'La patente es requerida'
                     },
                     regexp: {
-                        regexp: '/[A-Z]{3}[0-9]{3}$/',
+                        regexp: /([A-Z])\w{2}\s([0-9])\w{2}/g,
                         message: 'La patente debe contener tres letras y tres numeros'
                     }
                     
@@ -41,7 +41,7 @@ $('#datetimePicker').datetimepicker();
                       message : 'La fecha de ingreso es requerida'
                   },
                     date: {
-                        format: 'YYYY/DD/MM h:m',
+                        format: 'MM/DD/YYYY h:m A',
                         message: 'La fecha no es válida'
                     }
               }
