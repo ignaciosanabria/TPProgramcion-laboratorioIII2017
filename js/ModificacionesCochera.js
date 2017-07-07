@@ -2,7 +2,7 @@
      let id = window.localStorage.getItem("id");
      let funcionAjax = $.ajax({
      method : "GET",
-     url : "../vendor/TraerLaCochera/"+id
+     url : "../vendor/Cochera/TraerLaCochera/"+id
     });
     funcionAjax.then(function(dato){
         console.log(dato);
@@ -27,7 +27,7 @@
  {
      let id = window.localStorage.getItem("id");
      let funcionAjax = $.ajax({
-     url : "../vendor/ModificarLaCochera/"+id,
+     url : "../vendor/Cochera/ModificarLaCochera/"+id,
      method : "PUT",
      contentType : "application/x-www-form-urlencoded",
      data : {numero:$("#numero").val(),piso:$("#piso").val(),prioridad : $('input[name=prioridad]:checked').val()}

@@ -1,6 +1,6 @@
 window.onload = function(){
     var funcionAjax = $.ajax({
-    url : "../vendor/TraerTodosLosEmpleados",
+    url : "../vendor/Empleado/TraerTodosLosEmpleados",
     method : "GET"
 });
  funcionAjax.then(function(dato){
@@ -42,7 +42,7 @@ function BorrarEmpleado(id)
       {
           console.log(id);
            var funcionAjax = $.ajax({
-    url : '../vendor/BorrarElEmpleado/'+id,
+    url : '../vendor/Empleado/BorrarElEmpleado/'+id,
     method : 'DELETE'
     });
     funcionAjax.then(function (dato){
@@ -76,7 +76,7 @@ function IngresarEmpleado()
    dataEnvio.append("clave",clave);
    dataEnvio.append("turno",turno);
    var funcionAjax = $.ajax({
-   url : "../vendor/IngresarEmpleado",
+   url : "../vendor/Empleado/IngresarEmpleado",
    data : dataEnvio,
    method : "POST",
    cache: false,

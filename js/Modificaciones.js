@@ -2,7 +2,7 @@
      let id = window.localStorage.getItem("id");
      let funcionAjax = $.ajax({
      method : "GET",
-     url : "../vendor/TraerElEmpleado/"+id
+     url : "../vendor/Empleado/TraerElEmpleado/"+id
     });
     funcionAjax.then(function(dato){
         console.log(dato);
@@ -22,7 +22,7 @@
   {
     let id = window.localStorage.getItem("id");
        let funcionAjax = $.ajax({
-      url : '../vendor/ModificarElEmpleado/'+id,
+      url : '../vendor/Empleado/ModificarElEmpleado/'+id,
      data : {nombre:$("#nombre").val(),mail:$("#mail").val(),clave:$("#clave").val(),legajo:$("#legajo").val()},
      contentType : "application/x-www-form-urlencoded",
      method : "PUT"

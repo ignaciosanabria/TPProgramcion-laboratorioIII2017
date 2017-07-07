@@ -67,9 +67,9 @@ return $consulta->execute();
 public static function TraerTodosLosAutos()
 {
    $objetoAccesoDato = AccesoDatos::dameUnObjetoAcceso();
-   $consulta = $objetoAccesoDato->RetornarConsula("SELECT id as id, patente as patente, color as color , marca as marca from auto");
+   $consulta = $objetoAccesoDato->RetornarConsulta("SELECT id as id, patente as patente, color as color , marca as marca from auto");
    $consulta->execute();
-   return $consulta->fetchAll("auto");
+   return $consulta->fetchAll(PDO::FETCH_CLASS,"auto");
 }
 
 
@@ -93,6 +93,14 @@ public static function ModificarElAuto($auto)
     $objetoAccesoDato = AccesoDatos::dameUnObjetoAcceso();
     $consulta = $objetoAccesoDato->RetornarConsulta("UPDATE auto set patente = '$auto->patente' , color = '$auto->color' , marca = '$auto->marca' where id = '$auto->id' ");
     return $consulta->execute();
+}
+
+public static function TraerElAutoPorPatente($patente)
+{
+    $objetoAccesoDato = AccesoDatos::DameUnObjetoAcceso();
+    $consulta = $objetoAccesoDato->RetornarConsulta("SELECT * from auto WHERE patente = '$patente'");
+    $consulta->execute();
+    return $consulta->fetchObject("auto");
 }
 
 

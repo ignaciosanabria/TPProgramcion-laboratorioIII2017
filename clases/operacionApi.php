@@ -5,8 +5,9 @@ include_once("auto.php");
 include_once("operacion.php");
 class operacionApi
 {
-public function IngresarAutoOperacion($request, $response, $args) {
+public function IngresarOperacion($request, $response, $args) {
 $datos = $request->getParsedBody();
+$datos["idAuto"] = intval($datos["idAuto"]);
 $datos["idCochera"] = intval($datos["idCochera"]);
 $datos["idEmpleado"] = intval($datos["idEmpleado"]);
 $resp["status"] = 200;
@@ -24,24 +25,15 @@ if(!Empleado::ModificarElEmpleado($empleado))
 {
     $resp["status"] = 400;
 }
-
-$auto = new Auto();
-$auto->patente = $datos['patente'];
-$auto->color = $datos['color'];
-$auto->marca = $datos['marca'];
 // //Cuando se ingresa una operacion se setea un el importe y fecha_salida con valores null
 $operacion = new Operacion();
-$operacion->patente = $datos['patente'];
+$operacion->idAuto = $datos["idAuto"];
 $operacion->idCochera = $datos['idCochera'];
 $operacion->idEmpleado = $datos["idEmpleado"];
 $operacion->fecha_ingreso = $datos['fecha_ingreso'];
 $operacion->importe = 0;
 $operacion->fecha_salida = null;
 if(!Operacion::InsertarLaOperacion($operacion))
-{
-    $resp["status"] = 400;
-}
-if(!Auto::InsertarElAuto($auto))
 {
     $resp["status"] = 400;
 }
@@ -60,7 +52,8 @@ public function SacarAuto($request, $response, $args) {
 $dateTime = new DateTime('now', new DateTimeZone('America/Argentina/Buenos_Aires'));
 $fecha_salida = $dateTime->format("m/d/Y  h:i A");
 $data = $request->getParsedBody();
-$operacion = Operacion::TraerLaOperacionPorPatente($data["patente"]);
+$auto = Auto::TraerElAutoPorPatente($data["patente"]);
+$operacion = Operacion::TraerLaOperacionPorIdAuto($auto->id);
 $resp["status"] = 200;
 // if($operacion->GetFechaSalida() != null && $operacion->GetImporte() != 0)
 // {
@@ -134,7 +127,14 @@ if($diasDiferencias == 0)
     }
     else
     {
-        $importe = $horasDiferencias*10;
+        if($horasDiferencias < 12)
+        {
+            $importe = $horasDiferencias *10;
+        }
+        else if($horasDiferencias > 12)
+        {
+          $importe = 90+(($horasDiferencias-12)*10);
+        }
     }
 }
 else if($diasDiferencias >= 1)

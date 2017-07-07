@@ -2,7 +2,7 @@ window.onload = function(){
     let id = localStorage.getItem("idEmpleado");
     let fecha = localStorage.getItem("hora");
     var funcionAjax = $.ajax({
-    url : "../vendor/ModificarEmpleadoHora/"+id,
+    url : "../vendor/Empleado/ModificarEmpleadoHora/"+id,
     method : "POST",
     data : {fecha_inicio : fecha}
     });

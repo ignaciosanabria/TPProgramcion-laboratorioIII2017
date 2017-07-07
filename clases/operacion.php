@@ -3,7 +3,7 @@ include_once('../bd/AccesoDatos.php');
 class Operacion
 {
     public $id;
-    public $patente;
+    public $idAuto;
     public $fecha_ingreso;
     public $fecha_salida;
     public $importe;
@@ -22,14 +22,14 @@ class Operacion
         $this->id = $valor;
     }
 
-    public function GetPatente()
+    public function GetIdAuto()
     {
-        return $this->patente;
+        return $this->idAuto;
     }
 
-    public function SetPatente($valor)
+    public function SetIdAuto($valor)
     {
-        $this->patente = $valor;
+        $this->idAuto = $valor;
     }
 
     public function GetFechaIngreso()
@@ -91,7 +91,7 @@ class Operacion
     public static function TraerTodasLasOperaciones()
     {
         $objetoAccesoDato = AccesoDatos::dameUnObjetoAcceso();
-        $consulta = $objetoAccesoDato->RetornarConsulta("SELECT id as id, patente as patente, fecha_ingreso as fecha_ingreso, fecha_salida as fecha_salida, importe as importe, idCochera as idCochera, idEmpleado as idEmpleado from operacion");
+        $consulta = $objetoAccesoDato->RetornarConsulta("SELECT id as id, fecha_ingreso as fecha_ingreso, fecha_salida as fecha_salida, importe as importe, idCochera as idCochera, idEmpleado as idEmpleado, idAuto as idAuto from operacion");
         $consulta->execute();
         return $consulta->fetchAll(PDO::FETCH_CLASS,'operacion');
     }
@@ -107,28 +107,28 @@ class Operacion
     public static function InsertarLaOperacion($operacion)
     {
         $objetoAccesoDato = AccesoDatos::DameUnObjetoAcceso();
-        $consulta = $objetoAccesoDato->RetornarConsulta("INSERT INTO operacion (patente, fecha_ingreso, fecha_salida, importe, idCochera, idEmpleado)"."VALUES('$operacion->patente','$operacion->fecha_ingreso','$operacion->fecha_salida','$operacion->importe','$operacion->idCochera','$operacion->idEmpleado')");
+        $consulta = $objetoAccesoDato->RetornarConsulta("INSERT INTO operacion (fecha_ingreso, fecha_salida, importe, idCochera, idEmpleado, idAuto)"."VALUES('$operacion->IdAuto','$operacion->fecha_ingreso','$operacion->fecha_salida','$operacion->importe','$operacion->idCochera','$operacion->idEmpleado','$operacion->idAuto')");
         return $consulta->execute();
     }
 
-    public static function VerificarPatenteOperacion($patente)
-    {
-        $retorno = "error";
-        $ArrayOperaciones = Operacion::TraerTodasLasOperaciones();
-        foreach($ArrayOperaciones as $operacion)
-        {
-            if($operacion->GetPatente() == $patente)
-            {
-                $retorno = "ok";
-            }
-        }
-        return $retorno;
-    }
+    // public static function VerificarIdAutoOperacion($IdAuto)
+    // {
+    //     $retorno = "error";
+    //     $ArrayOperaciones = Operacion::TraerTodasLasOperaciones();
+    //     foreach($ArrayOperaciones as $operacion)
+    //     {
+    //         if($operacion->GetIdAuto() == $IdAuto)
+    //         {
+    //             $retorno = "ok";
+    //         }
+    //     }
+    //     return $retorno;
+    // }
 
-    public static function TraerLaOperacionPorPatente($patente)
+    public static function TraerLaOperacionPorIdAuto($IdAuto)
     {
         $objetoAccesoDato = AccesoDatos::DameUnObjetoAcceso();
-        $consulta = $objetoAccesoDato->RetornarConsulta("SELECT id as id, patente as patente, fecha_ingreso as fecha_ingreso, fecha_salida as fecha_salida, importe as importe, idCochera as idCochera, idEmpleado as idEmpleado from operacion where patente = '$patente' ");
+        $consulta = $objetoAccesoDato->RetornarConsulta("SELECT id as id, fecha_ingreso as fecha_ingreso, fecha_salida as fecha_salida, importe as importe, idCochera as idCochera, idEmpleado as idEmpleado, idAuto as idAuto from operacion where idAuto = '$idAuto' ");
         $consulta->execute();
         return $consulta->fetchObject('operacion');
     }

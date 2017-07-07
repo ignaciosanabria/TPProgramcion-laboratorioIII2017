@@ -1,6 +1,7 @@
 <?php
 include_once("empleado.php");
 include_once("cochera.php");
+include_once("auto.php");
 class empleadoApi
 {
 public function IngresarEmpleado($request,$response,$args)
@@ -94,12 +95,14 @@ return $response->withJson($resp);
 }
 
 
-public function TraerEmpleadosCocheras($request,$response,$args)
+public function TraerEmpleadosCocherasAutos($request,$response,$args)
 {
 $arrayCocheras = Cochera::TraerTodasLasCocheras();
 $arrayEmpleados = Empleado::TraerTodosLosEmpleados();
+$arrayAutos = Auto::TraerTodosLosAutos();
 $resp["cocheras"] = $arrayCocheras;
 $resp["empleados"] = $arrayEmpleados;
+$resp["autos"] = $arrayAutos;
 return $response->withJson($resp);
 }
 

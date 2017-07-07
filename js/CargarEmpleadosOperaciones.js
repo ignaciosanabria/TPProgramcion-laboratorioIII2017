@@ -2,7 +2,7 @@ window.onload = function(){
     let idEmpleado = localStorage.getItem("idEmpleado");
     console.log(idEmpleado);
     var funcionAjax = $.ajax({
-    url : "../vendor/TraerTodasLasOperaciones",
+    url : "../vendor/Operacion/TraerTodasLasOperaciones",
     method : "GET"
     });
     funcionAjax.then( function(dato){

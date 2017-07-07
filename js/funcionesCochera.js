@@ -8,7 +8,7 @@ function IngresarCochera()
    dataEnvio.append("piso",piso);
    dataEnvio.append("prioridad",prioridad);
     var funcionAjax = $.ajax({
-        url : "../vendor/InsertarNuevaCochera",
+        url : "../vendor/Cochera/InsertarNuevaCochera",
         data :  dataEnvio,
         method : "POST",
         cache: false,
@@ -37,7 +37,7 @@ function BorrarCochera(id)
      if(confirmar == true)
      {
          var funcionAjax = $.ajax({
-         url : "../vendor/BorrarCochera/"+id,
+         url : "../vendor/Cochera/BorrarCochera/"+id,
         method : "DELETE"
         });
     funcionAjax.then(function(dato){

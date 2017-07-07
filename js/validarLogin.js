@@ -2,7 +2,7 @@
 function EnviarDatos()
 {
     var funcionAjax = $.ajax({
-    url : "../vendor/index.php/ValidarUsuario",
+    url : "../vendor/Usuario/ValidarUsuario",
     method: "POST",
     data: {mail: $("#mail").val(), clave: $("#clave").val(),tipo:$('input[name=tipo]:checked').val(),horaLogin:$("#horaLogin").val()}
     });

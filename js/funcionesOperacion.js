@@ -1,12 +1,12 @@
+
 function IngresarOperacion()
 {
-    let id = localStorage.getItem("idEmpleado");
     var funcionAjax = $.ajax({
     //url : "../vendor/index.php/"
     url : '../vendor/Operacion/IngresarOperacion',
     method : 'POST',
     data : {idAuto:$("#idAuto").val(),idCochera:$("#idCochera").val(),fecha_ingreso:$("#fecha_ingreso").val(),
-    idEmpleado : id ,prioridad:$('input[name=prioridad]:checked').val()},
+    idEmpleado : $("#idEmpleado").val(),prioridad:$('input[name=prioridad]:checked').val()},
 });
   funcionAjax.then(function (dato)
 {
@@ -14,8 +14,8 @@ function IngresarOperacion()
     if(dato.status == 200 && dato.error == 200)
     {
       console.log(dato);
-      alert("El auto fue ingresado correctamente!");
-      window.location.replace("../enlaces/estacionamientoEmpleado.html");  
+      alert("La operacion fue ingresada correctamente!");
+      window.location.replace("../enlaces/estacionamiento.html");  
     }
     else if(dato.status == 400 && dato.error == 200)
     {
@@ -34,13 +34,11 @@ function IngresarOperacion()
 });
 }
 
-
-
-
+//Funcion del enlace sacarAuto.php
 function SacarAuto()
 {
     var funcionAjax = $.ajax({
-    url : "../vendor/Operacion/SacarAuto",
+    url : "../vendor/SacarAuto",
     method: 'POST',
     data: {patente:$("#patente").val()},
     });
@@ -49,11 +47,11 @@ function SacarAuto()
  if(dato.status == 200)
  {
      alert("El auto fue sacado del estacionamiento");
-     window.location.replace("../enlaces/estacionamientoEmpleado.html");
+     window.location.replace("../enlaces/estacionamiento.html");
  }
  else if(dato.status == 400)
  {
-     alert("ERROR. El auto no se encuentra en el estacionamiento");
+     alert("ERROR. El auto no se encuentra estacionado en el estacionamiento");
  }
 },function (dato)
 { 

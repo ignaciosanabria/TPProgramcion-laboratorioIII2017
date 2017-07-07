@@ -1,6 +1,6 @@
 window.onload = function(){
     let funcionAjax = $.ajax({
-    url : "../vendor/TraerTodasLasCocheras",
+    url : "../vendor/Cochera/TraerTodasLasCocheras",
     method : "GET"
 });
 funcionAjax.then(function(dato){
