@@ -14,7 +14,7 @@ function IngresarAuto()
     {
       console.log(dato);
       alert("El auto fue ingresado correctamente!");
-      window.location.replace("../enlaces/estacionamiento.html");
+      window.location.replace("../enlaces/grillaAutos.html");
     }
     else
     {

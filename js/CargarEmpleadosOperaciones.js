@@ -17,7 +17,7 @@ window.onload = function(){
       for(i=0;i<arrayOperaciones.length;i++)
       {
           StringOperaciones += "<tr>";
-          StringOperaciones += "<td>"+arrayOperaciones[i].patente+"</td>";
+          StringOperaciones += "<td>"+arrayOperaciones[i].idAuto+"</td>";
           StringOperaciones += "<td>"+arrayOperaciones[i].fecha_ingreso+"</td>";
           if(arrayOperaciones[i].fecha_salida == null && arrayOperaciones[i].fecha_salida == "")
           {

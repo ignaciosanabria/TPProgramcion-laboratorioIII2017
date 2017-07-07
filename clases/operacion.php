@@ -107,7 +107,7 @@ class Operacion
     public static function InsertarLaOperacion($operacion)
     {
         $objetoAccesoDato = AccesoDatos::DameUnObjetoAcceso();
-        $consulta = $objetoAccesoDato->RetornarConsulta("INSERT INTO operacion (fecha_ingreso, fecha_salida, importe, idCochera, idEmpleado, idAuto)"."VALUES('$operacion->IdAuto','$operacion->fecha_ingreso','$operacion->fecha_salida','$operacion->importe','$operacion->idCochera','$operacion->idEmpleado','$operacion->idAuto')");
+        $consulta = $objetoAccesoDato->RetornarConsulta("INSERT INTO operacion (fecha_ingreso, fecha_salida, importe, idCochera, idEmpleado, idAuto)"."VALUES('$operacion->fecha_ingreso','$operacion->fecha_salida','$operacion->importe','$operacion->idCochera','$operacion->idEmpleado','$operacion->idAuto')");
         return $consulta->execute();
     }
 
@@ -125,7 +125,7 @@ class Operacion
     //     return $retorno;
     // }
 
-    public static function TraerLaOperacionPorIdAuto($IdAuto)
+    public static function TraerLaOperacionPorIdAuto($idAuto)
     {
         $objetoAccesoDato = AccesoDatos::DameUnObjetoAcceso();
         $consulta = $objetoAccesoDato->RetornarConsulta("SELECT id as id, fecha_ingreso as fecha_ingreso, fecha_salida as fecha_salida, importe as importe, idCochera as idCochera, idEmpleado as idEmpleado, idAuto as idAuto from operacion where idAuto = '$idAuto' ");

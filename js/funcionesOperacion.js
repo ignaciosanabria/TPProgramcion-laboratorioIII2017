@@ -38,7 +38,7 @@ function IngresarOperacion()
 function SacarAuto()
 {
     var funcionAjax = $.ajax({
-    url : "../vendor/SacarAuto",
+    url : "../vendor/Operacion/SacarAuto",
     method: 'POST',
     data: {patente:$("#patente").val()},
     });

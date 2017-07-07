@@ -10,7 +10,7 @@ window.onload = function(){
        for(i=0;i<dato.operaciones.length;i++)
        {
          tds += "<tr>";
-         tds += "<td>"+dato.operaciones[i].patente+"</td>"+"\n";
+         tds += "<td>"+dato.operaciones[i].idAuto+"</td>"+"\n";
          tds += "<td>"+dato.operaciones[i].fecha_ingreso+"</td>"+"\n";
          if(dato.operaciones[i].fecha_salida == "")
          {
