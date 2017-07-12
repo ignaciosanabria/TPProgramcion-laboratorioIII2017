@@ -53,3 +53,12 @@ function ModificarAuto(id)
     window.location.replace("../enlaces/modificarAuto.html");
   }
 
+  function MostrarSweetAlert()
+  {
+    swal(
+ 'USUARIO VÁLIDO!',
+  'Usted esta registrado en la base de datos!',
+  'success'
+);
+  }
+

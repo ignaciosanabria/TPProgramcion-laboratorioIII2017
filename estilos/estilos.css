@@ -1,7 +1,7 @@
 body {
   margin: 0 auto;
-  color: black;
-  background: yellow;
+  color: blue;
+  background-image : url("fondoEstacionamiento.png");
   font-family:'Open Sans',sans-serif;
 }
 
@@ -53,7 +53,7 @@ body {
 
 input
 {
-  color: black;
+  color: black
 }
 option{
   color: black;
@@ -62,4 +62,13 @@ option{
 ::-webkit-input-placeholder { /* Safari, Chrome and Opera */
   color: black;
 }
+
+legend{
+  color: blue;
+  text-decoration: black;
+}
+
+
+
+
 

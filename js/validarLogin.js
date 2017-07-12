@@ -4,15 +4,23 @@ function EnviarDatos()
     var funcionAjax = $.ajax({
     url : "../vendor/Usuario/ValidarUsuario",
     method: "POST",
-    data: {mail: $("#mail").val(), clave: $("#clave").val(),tipo:$('input[name=tipo]:checked').val(),horaLogin:$("#horaLogin").val()}
+    data: {mail: $("#mail").val(), clave: $("#clave").val(),horaLogin:$("#horaLogin").val()}
     });
     funcionAjax.then(function(dato){
         //PREGUNTAR A LOS PROFES POR QUE SE ENVIA DOS VECES EL RESPONSE
       if(dato.status == "200" && dato.tipo == "administrador")
       {
       //console.log(dato);
-      alert("El mail y la clave estan en la base de datos");
-      window.location.replace("../enlaces/estacionamiento.html");
+      //alert("El mail y la clave estan en la base de datos");
+        swal(
+          'USUARIO VÁLIDO!',
+          'Usted esta registrado en la base de datos!',
+          'success'
+        ).then(function(){
+          window.location.replace("../enlaces/estacionamiento.html");
+        },function(){
+          swal('Algo inesperado ocurrio');
+        });
       }
       else if(dato.status == "200" && dato.tipo == "empleado")
      {
@@ -25,15 +33,18 @@ function EnviarDatos()
        {
            localStorage.setItem("idEmpleado",dato.id);
        }
-       alert("El mail y la clave estan en la base de datos");
+       swal(
+         'USUARIO VÁLIDO!',
+         'Usted esta registrado en la base de datos!',
+         'success'
+       );
        window.location.replace("../enlaces/estacionamientoEmpleado.html");
     }
   else
   {
-      alert("ERROR. Revise su tipo de usuario, su mail y su contraseña!");
+      alert("ERROR. Revise su mail y/o su contraseña!");
   }
     },function(dato){
-    if(dato.status == 400)
      alert("ERROR"+dato);
     });
 }

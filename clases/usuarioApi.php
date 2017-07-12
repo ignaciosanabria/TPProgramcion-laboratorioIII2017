@@ -6,24 +6,20 @@ class usuarioApi
 public function ValidarUsuario($request, $response, $args) {
    $datos = $request->getParsedBody();
    $resp["status"] = 400;
-   $resp["tipo"] = $datos["tipo"];
    $resp["hora"] = $datos["horaLogin"];
-   if($datos["tipo"] == "administrador")
-   {
        if(Usuario::VerificarUsuario($datos['mail'],$datos['clave']) == "ok")
          {
-      $resp["status"] = 200;
+        $resp["status"] = 200;
+        $resp["tipo"] = "administrador";
         }
-        else{
-            $resp["status"] = 400;
-        } 
-   }
-   else
-   {
-     if(Empleado::VerificarEmpleado($datos['mail'],$datos['clave']) == "ok")
+     else
+     {
+        
+       if(Empleado::VerificarEmpleado($datos['mail'],$datos['clave']) == "ok")
       {
        $resp["status"] = 200;
        $empleado = Empleado::TraerElEmpleadoPorMailYClave($datos['mail'],$datos['clave']);
+       $resp["tipo"] = "empleado";
    if(!$empleado)
    {
        $resp["id"] = false;
@@ -33,10 +29,7 @@ public function ValidarUsuario($request, $response, $args) {
        $resp["id"] = $empleado->GetId();
    }
       }
-      else
-      {
-          $resp["status"] = 400;
-      }
+
    }
    return $response->withJson($resp,200);
    
