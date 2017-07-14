@@ -3,24 +3,24 @@ use \Psr\Http\Message\ServerRequestInterface as Request;
 use \Psr\Http\Message\ResponseInterface as Response;
 
 require 'autoload.php';
-include_once('../clases/usuarioApi.php');
 include_once('../clases/operacionApi.php');
 include_once('../clases/empleadoApi.php');
 include_once('../clases/cocheraApi.php');
 include_once('../clases/autoApi.php');
+include_once('../clases/loginApi.php');
 
 $config['displayErrorDetails'] = true;
 $config['addContentLengthHeader'] = false;
 
 $app = new \Slim\App(["settings" => $config]);
 
-//API DE USUARIO ADMINISTRADOR
+//PUEDE INGRESAR EMPLEADO O ADMINISTRADOR-Administrador
 
-//PUEDE INGRESAR EMPLEADO O ADMINISTRADOR-usuario
-
-$app->group('/Usuario', function(){
-   $this->post('/ValidarUsuario', \usuarioApi::class . ':ValidarUsuario');
-   $this->get('/TraerHoraInicio',\usuarioApi::class .':TraerHoraInicio');
+$app->group('/Login', function(){
+   $this->post('/ValidarUsuario', \loginApi::class . ':ValidarUsuario');
+   $this->get('/TraerAdministrador/{id}',\loginApi::class .':TraerAdministrador');
+   $this->get('/TraerEmpleado/{id}',\loginApi::class .':TraerEmpleado');
+   $this->post('/RegistrarAdministrador',\loginApi::class .':RegistrarAdministrador');
 });
 
 //API DE OPERACIONES

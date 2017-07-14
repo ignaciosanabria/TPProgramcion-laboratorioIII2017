@@ -1,6 +1,6 @@
 $(document).ready(function () {
 
-    $("#FormIngresoEmpleado").bootstrapValidator({
+    $("#RegistrarForm").bootstrapValidator({
         message: 'Este valor no es valido',
         feedbackIcons: {
             valid: 'glyphicon glyphicon-ok',
@@ -9,23 +9,13 @@ $(document).ready(function () {
         },
 
         fields: {
-           legajo : {
-                   validators: {
-                      integer : {
-                          message : 'El número que selecciono no es válido'
-                      },
-                      notEmpty : {
-                          message : 'El numero de legajo es requerido'
-                      }
-                   }
-           },
-           nombre: {
-                   validators: {
-                       notEmpty : {
-                           message : 'El nombre es requerido'
-                       }
-                   }
-           },
+            nombre: {
+                validators: {
+                    notEmpty: {
+                        message: 'El nombre del administrador es requerido'
+                    }
+                }
+            },
             mail: {
                 validators: {
                     notEmpty: {
@@ -43,13 +33,14 @@ $(document).ready(function () {
                     }
                 }
             },
-           turno: {
-               validators: {
-                   notEmpty: {
-                       message: 'El turno es requerido'
-                   }
-               }
-           }
+
+            repetirClave: {
+                validators: {
+                    notEmpty: {
+                        message : 'Este campo no puede estar vacío'
+                    }
+                }
+            }
         }
     });
 

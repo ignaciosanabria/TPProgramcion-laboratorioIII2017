@@ -46,8 +46,8 @@ window.onload = function(){
       }
       else
       {
-          alert("EL EMPLEADO NO HA REALIZADO OPERACIONES AÚN");
-          window.location.replace("../enlaces/grillaEmpleados.html");
+          swal("EL EMPLEADO NO HA REALIZADO OPERACIONES AÚN").then(function(){
+          window.location.replace("../enlaces/grillaEmpleados.html")},);
       }
       document.getElementById("operacionesEmpleado").innerHTML = StringOperaciones;
     },function(dato){

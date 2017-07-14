@@ -9,7 +9,8 @@ class Operacion
     public $importe;
     public $idCochera;
     public $idEmpleado;
-   
+    
+       
     //METODOS GETTERS AND SETTERS
 
     public function GetId()
@@ -125,10 +126,10 @@ class Operacion
     //     return $retorno;
     // }
 
-    public static function TraerLaOperacionPorIdAuto($idAuto)
+    public static function TraerLaOperacionNoCerrada($idAuto)
     {
         $objetoAccesoDato = AccesoDatos::DameUnObjetoAcceso();
-        $consulta = $objetoAccesoDato->RetornarConsulta("SELECT id as id, fecha_ingreso as fecha_ingreso, fecha_salida as fecha_salida, importe as importe, idCochera as idCochera, idEmpleado as idEmpleado, idAuto as idAuto from operacion where idAuto = '$idAuto' ");
+        $consulta = $objetoAccesoDato->RetornarConsulta("SELECT id as id, fecha_ingreso as fecha_ingreso, fecha_salida as fecha_salida, importe as importe, idCochera as idCochera, idEmpleado as idEmpleado, idAuto as idAuto from operacion where idAuto = '$idAuto' && fecha_salida = ' ' ");
         $consulta->execute();
         return $consulta->fetchObject('operacion');
     }

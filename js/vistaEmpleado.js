@@ -8,21 +8,40 @@ window.onload = function(){
         let stringAutos = " ";
         let optionCero = "<option value=0>Seleccionar</option>";
         console.log(dato);
-        var arrayCocheras = dato.cocheras.filter(function(elemento){
-          return elemento.estaLibre == 1;
+        var arrayCocherasLibres = dato.cocheras.filter(function(elemento){
+          return elemento.idAuto == null;
         });
-        console.log(arrayCocheras);
-        for(let i = 0;i<arrayCocheras.length;i++)
+        var arrayCocherasOcupadas = dato.cocheras.filter(function(elemento){
+          return elemento.idAuto != null;
+        });
+        var arrayAutos = dato.autos;
+        console.log(arrayCocherasOcupadas);
+        console.log(arrayCocherasLibres);
+        console.log(arrayAutos);
+             for(let i = 0; i < arrayCocherasOcupadas.length; i++)
+             {
+                 for(let j = 0; j < arrayAutos.length;j++)
+                 {
+                     if(arrayCocherasOcupadas[i].idAuto == arrayAutos[j].id)
+                     {
+                         arrayAutos.splice(j,1);
+                     }
+                 }
+             }
+        console.log(arrayAutos);
+        console.log(arrayCocherasOcupadas);
+        console.log(arrayCocherasLibres);
+        for(let i = 0;i<arrayCocherasLibres.length;i++)
         {
-            stringCocheras += "<option value="+arrayCocheras[i].id+">"+arrayCocheras[i].numero+"</option>";
+            stringCocheras += "<option value="+arrayCocherasLibres[i].id+">"+arrayCocherasLibres[i].numero+"</option>";
         }
-        for(let j = 0;j<dato.autos.length;j++)
+        for(let j = 0;j<arrayAutos.length;j++)
         {
-           stringAutos += "<option value="+dato.autos[j].id+">"+dato.autos[j].id+"</option>";
+           stringAutos += "<option value="+arrayAutos[j].id+">"+arrayAutos[j].patente+"</option>";
         }
         document.getElementById("idCochera").innerHTML = optionCero + stringCocheras;
         document.getElementById("idAuto").innerHTML = optionCero + stringAutos;
     },function(dato){
-        alert("ERROR "+dato);
+        swal("ERROR "+dato);
     })
 }

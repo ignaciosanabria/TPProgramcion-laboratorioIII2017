@@ -1,5 +1,5 @@
  window.onload = function() {
-     let id = window.localStorage.getItem("id");
+     let id = window.localStorage.getItem("idCocheraModificacion");
      let funcionAjax = $.ajax({
      method : "GET",
      url : "../vendor/Cochera/TraerLaCochera/"+id
@@ -25,22 +25,25 @@
 
  function HacerModificacion()
  {
-     let id = window.localStorage.getItem("id");
+     let id = window.localStorage.getItem("idCocheraModificacion");
      let funcionAjax = $.ajax({
      url : "../vendor/Cochera/ModificarLaCochera/"+id,
      method : "PUT",
-     contentType : "application/x-www-form-urlencoded",
      data : {numero:$("#numero").val(),piso:$("#piso").val(),prioridad : $('input[name=prioridad]:checked').val()}
      });
      funcionAjax.then(function(dato){
         if(dato.status == 200)
         {
-            alert("La cochera fue modificada correctamente!");
-            window.location.replace("../enlaces/grillaCocheras.html");
+           swal("La cochera fue modificada correctamente!").then(function(){
+            window.location.replace("../enlaces/grillaCocheras.html")},);
         }
         else if(dato.status == 400)
         {
-            alert("ERROR. El auto no pudo ser modificado");
+            swal("ERROR. El auto no pudo ser modificado");
+        }
+        else if(dato.status == 401)
+        {
+            swal("ERROR. La cochera no se puede modificar porque tiene un auto estacionado");
         }
      },function(dato){
         alert("ERROR"+dato);

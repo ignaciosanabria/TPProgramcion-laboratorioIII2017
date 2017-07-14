@@ -9,6 +9,8 @@
     <script src="../bower_components/jquery/dist/jquery.min.js"></script>
     <script src="../bower_components/bootstrapvalidator/dist/js/bootstrapValidator.min.js"></script>
     <script src="../bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="../bower_components/sweetalert2/dist/sweetalert2.min.js"></script>
+    <link rel="stylesheet" href="../bower_components/sweetalert2/dist/sweetalert2.min.css">
     <link rel="stylesheet" type="text/css" href="../estilos/estilos.css">
     <script type="text/javascript" src="../js/Modificaciones.js"></script>
    </head>
@@ -19,6 +21,7 @@
 		</div>
        <div class="CajaInicio animated bounceInRight">
       <form method="POST" enctype="multipart/form-data" class="form-horizontal">
+      <br>
        <h1>Datos del Empleado a Modificar</h1>
 
        <p>Por favor rellene los campos para modificar el empleado</p>
@@ -52,16 +55,31 @@
                  <input type="password" class="form-control" name="clave" id="clave" placeholder="Ingrese contraseña"/>
             </div>
         </div>   
-       <br>
 
-	    <div class="form-group">
-            <div class="col-md-5 col-md-offset-3">
-                <button onclick="HacerModificacion(); return false" class="btn btn-danger">Aceptar</button>
-                <a href="grillaEmpleados.html" class="btn btn-primary">
-                <span class="glyphicon glyphicon-plus"></span>                                                
-                Cancelar</a>
+       <div class="form-group">
+            <label for="" class="col-lg-4 control-label">Turno</label>
+            <div class="col-lg-6">
+                 <select class="form-control" name="turno" id="turno">
+                 <option value="null">Seleccionar</option>
+                  <option value="mañana">Mañana</option>
+                  <option value="tarde">Tarde</option>
+                  <option value="noche">Noche</option>
+                 </select>
             </div>
-         </div>
+        </div>
+
+	   <div class="form-group">
+            <div class="col-lg-1 col-lg-offset-3">
+                <button onclick="HacerModificacion()" class="btn btn-success">
+                <span class="glyphicon glyphicon-ok"></span>
+                Aceptar</button>
+            </div>
+                <div class="col-lg-2 col-lg-offset-4">
+                <a href="grillaEmpleados.html" class="btn btn-danger"><span class="glyphicon glyphicon-remove"></span>Cancelar</a>
+                </div>
+               </div>
+
+
 
        </div>
        </form>

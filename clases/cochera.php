@@ -4,7 +4,7 @@ class Cochera
 {
 public $id;
 public $piso;
-public $estaLibre;
+public $idAuto;
 public $prioridad;
 public $numero;
 public $vecesDeUso;
@@ -30,14 +30,14 @@ public function SetPiso($valor)
     $this->piso = $valor;
 }
 
-public function GetEstaLibre()
+public function GetIdAuto()
 {
-    return $this->estaLibre;
+    return $this->idAuto;
 }
 
-public function SetEstaLibre($valor)
+public function SetIdAuto($valor)
 {
-    $this->estaLibre = $valor;
+    $this->idAuto = $valor;
 }
 
 public function GetPrioridad()
@@ -81,7 +81,7 @@ public function construct__()
 
 public function ToString()
 { 
-  return "Id: ".$this->id." - Piso: ".$this->piso." - Esta Libre: ".$this->estaLibre." - Prioridad: ".$this->prioridad." - Numero: ".$this->numero." - Veces De Uso: ".$this->vecesDeUso."<br>";
+  return "Id: ".$this->id." - Piso: ".$this->piso." - idAuto : ".$this->idAuto." - Prioridad: ".$this->prioridad." - Numero: ".$this->numero." - Veces De Uso: ".$this->vecesDeUso."<br>";
 }
 
 //INSERTAR
@@ -117,7 +117,7 @@ public static function TraerLaCocheraPorIdYPrioridad($idCochera,$prioridad)
 public static function TraerTodasLasCocheras()
 {
   $objetoAccesoDato = AccesoDatos::DameUnObjetoAcceso();
-$consulta = $objetoAccesoDato->RetornarConsulta("SELECT id as id, piso as piso, estaLibre as estaLibre, prioridad as prioridad, numero as numero, vecesDeUso as vecesDeUso from cochera");
+$consulta = $objetoAccesoDato->RetornarConsulta("SELECT id as id, piso as piso, idAuto as idAuto, prioridad as prioridad, numero as numero, vecesDeUso as vecesDeUso from cochera");
 $consulta->execute();
  return $consulta->fetchAll(PDO::FETCH_CLASS,'cochera');
 }
@@ -125,7 +125,7 @@ $consulta->execute();
 public static function TraerTodasLasCocherasLibres()
 {
     $objetoAccesoDato = AccesoDatos::DameUnObjetoAcceso();
-    $consulta = $objetoAccesoDato->RetornarConsulta("SELECT id as id, piso as piso, estaLibre as estaLibre, prioridad as prioridad, numero as numero, vecesDeUso as vecesDeUso from cochera where estaLibre = 1 ");
+    $consulta = $objetoAccesoDato->RetornarConsulta("SELECT id as id, piso as piso, idAuto as idAuto, prioridad as prioridad, numero as numero, vecesDeUso as vecesDeUso from cochera where IdAuto = 1 ");
     $consulta->execute();
     return $consulta->fetchAll(PDO::FETCH_CLASS,'cochera');
 }
@@ -134,7 +134,7 @@ public static function TraerTodasLasCocherasLibres()
 public static function TraerTodasLasCocherasConPrioridad()
 {
   $objetoAccesoDato = AccesoDatos::DameUnObjetoAcceso();
-    $consulta = $objetoAccesoDato->RetornarConsulta("SELECT id as id, piso as piso, estaLibre as estaLibre, prioridad as prioridad, numero as numero, vecesDeUso as vecesDeUso from cochera where prioridad = 1 ");
+    $consulta = $objetoAccesoDato->RetornarConsulta("SELECT id as id, piso as piso, idAuto as idAuto, prioridad as prioridad, numero as numero, vecesDeUso as vecesDeUso from cochera where prioridad = 1 ");
     $consulta->execute();
     return $consulta->fetchAll(PDO::FETCH_CLASS,'cochera');
 }
@@ -143,7 +143,7 @@ public static function TraerTodasLasCocherasConPrioridad()
 public static function InsertarLaCochera($cochera)
 {
     $objetoAccesoDato = AccesoDatos::DameUnObjetoAcceso();
-    $consulta = $objetoAccesoDato->RetornarConsulta("INSERT INTO cochera (numero ,piso , estaLibre, prioridad, vecesDeUso)"."VALUES('$cochera->numero','$cochera->piso','$cochera->estaLibre','$cochera->prioridad','$cochera->vecesDeUso')");
+    $consulta = $objetoAccesoDato->RetornarConsulta("INSERT INTO cochera (numero ,piso , idAuto, prioridad, vecesDeUso)"."VALUES('$cochera->numero','$cochera->piso', NULL,'$cochera->prioridad','$cochera->vecesDeUso')");
     return $consulta->execute();
 }
 
@@ -156,10 +156,18 @@ public static function BorrarLaCochera($idCochera)
     return $consulta->execute();
 }
 
-public static function ModificarLaCochera($cochera)
+public static function ModificarLaCocheraLibre($cochera)
 {
     $objetoAccesoDato = AccesoDatos::DameUnObjetoAcceso();
-    $consulta = $objetoAccesoDato->RetornarConsulta("UPDATE cochera set numero = '$cochera->numero', piso = '$cochera->piso', estaLibre = '$cochera->estaLibre', prioridad =  '$cochera->prioridad', vecesDeUso = '$cochera->vecesDeUso' where id = '$cochera->id'");
+    $consulta = $objetoAccesoDato->RetornarConsulta("UPDATE cochera set numero = '$cochera->numero', piso = '$cochera->piso', idAuto = NULL , prioridad =  '$cochera->prioridad', vecesDeUso = '$cochera->vecesDeUso' where id = '$cochera->id'");
+    return $consulta->execute();
+}
+
+
+public static function ModificarLaCocheraOcupada($cochera)
+{
+    $objetoAccesoDato = AccesoDatos::DameUnObjetoAcceso();
+    $consulta = $objetoAccesoDato->RetornarConsulta("UPDATE cochera set numero = '$cochera->numero', piso = '$cochera->piso', idAuto = '$cochera->idAuto' , prioridad =  '$cochera->prioridad', vecesDeUso = '$cochera->vecesDeUso' where id = '$cochera->id'");
     return $consulta->execute();
 }
 

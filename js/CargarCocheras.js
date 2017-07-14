@@ -11,8 +11,27 @@ funcionAjax.then(function(dato){
        stringCocheras += "<tr>";
        stringCocheras += "<td>"+dato.cocheras[i].numero+"</td>";
        stringCocheras += "<td>"+dato.cocheras[i].piso+"</td>";
-       stringCocheras += "<td>"+dato.cocheras[i].estaLibre+"</td>";
-       stringCocheras += "<td>"+dato.cocheras[i].prioridad+"</td>";
+       for(let j = 0; j < dato.autos.length;j++)
+       {
+           if(dato.cocheras[i].idAuto == null)
+       {
+            stringCocheras += "<td>"+"ESTA LIBRE"+"</td>";
+            break;
+       }
+       else if(dato.cocheras[i].idAuto == dato.autos[j].id)
+      {
+           stringCocheras += "<td>"+"Ocupado por "+dato.autos[j].patente+"</td>";
+           break;
+      }
+       }
+      if(dato.cocheras[i].prioridad == "1")
+      {
+        stringCocheras += "<td>"+"DISCAPACITADO"+"</td>";
+      }
+      else
+      {
+           stringCocheras += "<td>"+"SIN PRIORIDAD"+"</td>";
+      }
        stringCocheras += "<td>"+dato.cocheras[i].vecesDeUso+"</td>";
        stringCocheras += "<td>"+"<button class='btn btn-danger' onclick=BorrarCochera("+dato.cocheras[i].id+")>"+
        "<span class='glyphicon glyphicon-remove'></span>Borrar</td>";

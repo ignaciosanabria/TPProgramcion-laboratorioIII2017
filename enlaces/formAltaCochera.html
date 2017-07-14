@@ -8,6 +8,8 @@
     <script src="../bower_components/jquery/dist/jquery.min.js"></script>
     <script src="../bower_components/bootstrapvalidator/dist/js/bootstrapValidator.min.js"></script>
     <script src="../bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="../bower_components/sweetalert2/dist/sweetalert2.min.js"></script>
+    <link rel="stylesheet" href="../bower_components/sweetalert2/dist/sweetalert2.min.css">
     <link rel="stylesheet" type="text/css" href="../estilos/estilos.css">
     <script type="text/javascript" src="../js/funcionesCochera.js"></script>
     <script type="text/javascript" src ="../js/validadorFormCochera.js"></script>
@@ -20,7 +22,7 @@
          </div>
          <div class="CajaInicio animated bounceInRight">
          <form action="" enctype="multipart/form-data" id="FormIngresoCochera" method="POST" class="form-horizontal">
-        <p>Por favor rellene los campos para ingresar la cochera nueva</p>
+        <br>
         <div class="form-group">
             <label for="" class="col-lg-4 control-label">Numero</label>
             <div class="col-lg-6">
@@ -31,7 +33,7 @@
         <div class="form-group">
             <label for="" class="col-lg-4 control-label">Piso</label>
             <div class="col-lg-6">
-               <select name="piso" id="piso" class="btn btn-success"> 
+               <select name="piso" id="piso" class="btn btn-default"> 
                 <option value="0">Seleccionar:</option> 
                  <option value="1">Piso 1</option>
                  <option value="2">Piso 2</option>
@@ -51,14 +53,16 @@
 
 
         <div class="form-group">
-            <div class="col-md-5 col-md-offset-3">
-                <button onclick="IngresarCochera()" class="btn btn-danger">Aceptar</button>
-                <a href="grillaCocheras.html" class="btn btn-primary">
-                <span class="glyphicon glyphicon-plus"></span>                                                
-                Cancelar</a>
+            <div class="col-lg-1 col-lg-offset-3">
+                <button onclick="IngresarCochera()" class="btn btn-success">
+                <span class="glyphicon glyphicon-ok"></span>
+                Aceptar</button>
             </div>
+                <div class="col-lg-2 col-lg-offset-4">
+                <a href="estacionamiento.html" class="btn btn-danger"><span class="glyphicon glyphicon-remove"></span>Cancelar</a>
+                </div>
+               </div>
 
-        </div>
 
          </form>
          </div>

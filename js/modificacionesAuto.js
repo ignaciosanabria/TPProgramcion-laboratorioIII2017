@@ -20,20 +20,25 @@ function HacerModificacion()
     var idAuto = localStorage.getItem("idAuto");
     var funcionAjax = $.ajax({
     url : "../vendor/Auto/ModificarElAuto/"+idAuto,
+    data : {patente:$("#patente").val(),marca:$("#marca").val(),color:$("#color").val()},
     method : "PUT"
 });
    funcionAjax.then(function(dato){
+       console.log(dato);
        if(dato.status == 200)
        {
            console.log(dato);
-           alert("El auto fue modificado");
-           window.location.replace("../enlaces/grillaAutos.html");
+           swal("El auto fue modificado").then(function(){
+                window.location.replace("../enlaces/grillaAutos.html");
+           },function(){
+               swal("Sucedio algo inesperado!");
+           });
        }
        else
        {
-           alert("ERROR el auto no pudo ser modificado "+dato.status);
+           swal("ERROR el auto no pudo ser modificado "+dato.status);
        }
    }, function(dato){
-       alert("ERROR. "+dato);
+      swal("ERROR. "+dato);
    });
 }

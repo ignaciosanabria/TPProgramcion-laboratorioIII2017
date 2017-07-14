@@ -9,7 +9,6 @@ window.onload = function(){
      for(var i = 0; i < dato.autos.length; i++)
      {
          stringAutos += "<tr>";
-         stringAutos += "<td>"+dato.autos[i].id+"</td>";
          stringAutos += "<td>"+dato.autos[i].patente+"</td>";
          stringAutos += "<td>"+dato.autos[i].marca+"</td>";
          stringAutos += "<td>"+dato.autos[i].color+"</td>";

@@ -14,26 +14,27 @@
   <link rel="stylesheet" href="../bower_components/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css" />
     <script src="../bower_components/sweetalert2/dist/sweetalert2.min.js"></script>
     <link rel="stylesheet" href="../bower_components/sweetalert2/dist/sweetalert2.min.css">
-    <script type="text/javascript" src="../js/funcionesAutoOperacionEmpleado.js">
+    <script type="text/javascript" src="../js/funcionesOperacion.js">
     </script>
-    <script type="text/javascript" src="../js/validadorOperacionEmpleado.js">
+    <script type="text/javascript" src="../js/validadorOperacion.js">
     </script>
-    <script type="text/javascript" src="../js/vistaEmpleado.js"></script>
+    <script type="text/javascript" src="../js/CargarEmpleadosCocheras.js"></script>
         <title>Ingresar Operacion</title>
     </head>
     <body>
         <div class="container">
          <div class="page-header">
-         <h1>Ingreso de operacion al Estacionamiento</h1>
+         <h1>Ingreso de Operaciones al Estacionamiento</h1>
          </div><!--Cierre Page Header -->
          
          <div class="CajaInicio animated bounceInRight">
-		<h1>Ingrese el numero del auto con su fecha de ingreso y el numero de cochera donde va a estacionarlo
+			<h1>Ingrese el numero del auto con su fecha de ingreso, el numero de cochera y 
+                el empleado que va a estacionarlo
             </h1>
 
 			<form id="FormIngreso" class="form-horizontal" method="POST" enctype="multipart/form-data" action="" >
 				
-            <div class="form-group">
+                <div class="form-group">
               <label for="" class="col-lg-4 control-label">Auto</label>
             <div class="col-lg-6">
                  <select id="idAuto" name="idAuto" class="form-control">
@@ -41,6 +42,8 @@
                  </select>
                  </div>               
              </div>
+        
+
 
         <div class="form-group">
             <label for="" class="col-lg-4 control-label">Fecha de Ingreso</label>
@@ -65,17 +68,26 @@
             </div>
         </div>
 
+              <div class="form-group">
+              <label for="" class="col-lg-4 control-label">Empleado</label>
+            <div class="col-lg-6">
+                 <select id="idEmpleado" name="idEmpleado" class="form-control">
+               
+                 </select>
+                 </div>               
+             </div>
 
+             
                <div class="form-group">
-            <div class="col-lg-1 col-lg-offset-3">
-                <button onclick="IngresarOperacion()" class="btn btn-success">
-                <span class="glyphicon glyphicon-ok"></span>
+            <div class="col-md-5 col-md-offset-3">
+                <button onclick="IngresarOperacion()" class="btn btn-danger">
+                <span class="glyphicon glyphicon-plus"></span>
                 Aceptar</button>
-            </div>
-                <div class="col-lg-2 col-lg-offset-4">
-                <a href="estacionamientoEmpleado.html" class="btn btn-danger"><span class="glyphicon glyphicon-remove"></span>Cancelar</a>
-                </div>
-               </div>
+                <a href="estacionamiento.html" class="btn btn-primary">
+                <span class="glyphicon glyphicon-plus"></span>                                                
+                Cancelar</a>
+             </div>
+        </div>
 
            
             </form>

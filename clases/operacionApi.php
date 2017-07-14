@@ -11,20 +11,6 @@ $datos["idAuto"] = intval($datos["idAuto"]);
 $datos["idCochera"] = intval($datos["idCochera"]);
 $datos["idEmpleado"] = intval($datos["idEmpleado"]);
 $resp["status"] = 200;
-$resp["error"] = 200;
-$cochera = Cochera::TraerLaCocheraPorIdYPrioridad($datos["idCochera"],$datos["prioridad"]);
-if($cochera == false)
-{
-    $resp["error"] = 400;
-}
-else
-{
-$empleado = Empleado::TraerElEmpleado($datos["idEmpleado"]);
-$empleado->SetCantidadOperaciones($empleado->GetCantidadOperaciones()+1);
-if(!Empleado::ModificarElEmpleado($empleado))
-{
-    $resp["status"] = 400;
-}
 // //Cuando se ingresa una operacion se setea un el importe y fecha_salida con valores null
 $operacion = new Operacion();
 $operacion->idAuto = $datos["idAuto"];
@@ -37,13 +23,13 @@ if(!Operacion::InsertarLaOperacion($operacion))
 {
     $resp["status"] = 400;
 }
-    $cochera->SetEstaLibre(chr(0));
+$cochera = Cochera::TraerLaCochera($datos["idCochera"]);
+    $cochera->SetIdAuto($datos["idAuto"]);
     $cochera->SetVecesDeUso($cochera->GetVecesDeUso()+1);
-     if(!Cochera::ModificarLaCochera($cochera))
+     if(!Cochera::ModificarLaCocheraOcupada($cochera))
      {
       $resp["status"] = 400;
      } 
-}
 return $response->withJson($resp);
 }
 
@@ -51,19 +37,31 @@ return $response->withJson($resp);
 public function SacarAuto($request, $response, $args) {
 $dateTime = new DateTime('now', new DateTimeZone('America/Argentina/Buenos_Aires'));
 $fecha_salida = $dateTime->format("m/d/Y  h:i A");
+$resp["status"] = 200;
 $data = $request->getParsedBody();
 $auto = Auto::TraerElAutoPorPatente($data["patente"]);
-$operacion = Operacion::TraerLaOperacionPorIdAuto($auto->id);
-$resp["status"] = 200;
-// if($operacion->GetFechaSalida() != null && $operacion->GetImporte() != 0)
-// {
-//   $resp["status"] = 400;
-// }
-// else
-// {
+if($auto == false)
+{
+    $resp["status"] = 400;
+}
+$operacion = Operacion::TraerLaOperacionNoCerrada($auto->id);
+if($operacion == false)
+{
+    $resp["status"] = 400;
+}
 $cochera = Cochera::TraerLaCochera($operacion->idCochera);
-$cochera->SetEstaLibre(chr(1));
-Cochera::ModificarLaCochera($cochera);
+if($cochera == false)
+{
+    $resp["status"] = 400;
+}
+if(!Cochera::ModificarLaCocheraLibre($cochera))
+{
+    $resp["status"] = 400;
+}
+
+// --------------------- IMPORTE -----------------------
+
+
 // //PARA LA HORA - SACAR DIFERENCIA HORA E IMPORTE
 $arrayFechaEntrada = preg_split("([ /:])",$operacion->fecha_ingreso);
 $arrayFechaSalida = preg_split("([ /:])",$fecha_salida);
@@ -153,10 +151,14 @@ else if($diasDiferencias >= 1)
     }
 }
 
+// --------------------- IMPORTE -----------------------
+
 $operacion->SetImporte($importe);
 $operacion->SetFechaSalida($fecha_salida);
-Operacion::ModificarLaOperacionACerrar($operacion);
-// }
+if(!Operacion::ModificarLaOperacionACerrar($operacion))
+{
+    $resp["status"] = 400;
+}
 return $response->withJson($resp);
 }
 
@@ -166,9 +168,11 @@ public function TraerOperaciones($request,$response,$args)
 $arrayOperaciones = Operacion::TraerTodasLasOperaciones();
 $arrayCocheras = Cochera::TraerTodasLasCocheras();
 $arrayEmpleados = Empleado::TraerTodosLosEmpleados();
-$resp["operaciones"] = $arrayOperaciones;
-$resp["Cocheras"] = $arrayCocheras;
+$arrayAutos = Auto::TraerTodosLosAutos();
+$resp["cocheras"] = $arrayCocheras;
 $resp["empleados"] = $arrayEmpleados;
+$resp["autos"] = $arrayAutos;
+$resp["operaciones"] = $arrayOperaciones;
 $response = $response->withJson($resp);
 return $response;
 }

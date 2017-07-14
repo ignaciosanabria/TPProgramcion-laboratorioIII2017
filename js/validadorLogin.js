@@ -1,6 +1,6 @@
 $(document).ready(function () {
 
-    $("#loginForm").bootstrapValidator({
+    $("#loginInicioForm").bootstrapValidator({
         message: 'Este valor no es valido',
         feedbackIcons: {
             valid: 'glyphicon glyphicon-ok',
@@ -25,14 +25,7 @@ $(document).ready(function () {
                         message: 'La contraseña es requerida'
                     }
                 }
-            },
-          tipo : {
-              validators : {
-                   notEmpty : {
-                       message : 'Por favor seleccione un casilla'
-                   }
-              }
-          }
+            }
         }
     });
 

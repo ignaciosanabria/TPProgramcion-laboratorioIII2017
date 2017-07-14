@@ -12,16 +12,8 @@ window.onload = function(){
          StringEmpleados += "<td>"+dato.empleados[i].legajo+"</td>";
          StringEmpleados += "<td>"+dato.empleados[i].nombre+"</td>";
          StringEmpleados += "<td>"+dato.empleados[i].mail+"</td>";
-         StringEmpleados += "<td>"+dato.empleados[i].clave+"</td>";
-         StringEmpleados += "<td>"+dato.empleados[i].cantidadOperaciones+"</td>";
-         if(dato.empleados[i].fecha_ingreso != "" && dato.empleados[i].fecha_ingreso != null)
-         {
-           StringEmpleados += "<td>"+dato.empleados[i].fecha_ingreso+"</td>";  
-         }
-         else
-         {
-           StringEmpleados += "<td>"+"NO INGRESO TODAVÍA"+"</td>";
-         }
+         let clave = dato.empleados[i].clave.replace(dato.empleados[i].clave,"****");
+         StringEmpleados += "<td>"+clave+"</td>";
          StringEmpleados += "<td>"+dato.empleados[i].turno+"</td>";
          StringEmpleados += "<td>"+ "<button class='btn btn-danger' onclick=VerEmpleadoOperaciones("+dato.empleados[i].id+")><span class='glyphicon glyphicon-th-list'></span>Ver Operaciones</button>"+"</td>";
          StringEmpleados += "<td>"+"<button class='btn btn-danger' onclick=BorrarEmpleado("+dato.empleados[i].id+")><span class='glyphicon glyphicon-remove'></span>Borrar</button>"+"</td>";
@@ -37,29 +29,34 @@ window.onload = function(){
 
 function BorrarEmpleado(id)
 {
-    var confirmar = confirm("Desea borrar el empleado seleccionado?");
-    if(confirmar == true)
-      {
-          console.log(id);
-           var funcionAjax = $.ajax({
-    url : '../vendor/Empleado/BorrarElEmpleado/'+id,
-    method : 'DELETE'
-    });
-    funcionAjax.then(function (dato){
+    swal({
+  title: 'Desea borrar el empleado seleccionado?',
+  type: 'warning',
+  showCancelButton: true,
+  confirmButtonColor: '#3085d6',
+  cancelButtonColor: '#d33',
+  confirmButtonText: 'Si, borrar empleado!',
+  cancelButtonClass: 'btn btn-danger',
+  cancelButtonText: 'No, no borrar empleado!'
+}).then(function () {
+    var funcionAjax = $.ajax({
+         url : "../vendor/Empleado/BorrarElEmpleado/"+id,
+        method : "DELETE"
+        });
+    funcionAjax.then(function(dato){
      if(dato.status == 200)
-    {
-    alert("El empleado fue borrado correctamente");  
-    location.reload();   
-    }
-    else
-    {
-        alert("ERROR. El empleado no pudo ser borrado!");
-    }
-    }
-    ,function(dato){
-        alert("ERROR "+dato);
-    });
-      }
+     {
+         swal("El empleado fue borrado correctamente!").then(function(){
+         location.reload(); });
+     }
+     else
+     {
+         swal("ERROR. El empleado no pudo ser borrada");
+     }
+    },function(dato){
+       swal("ERROR en la Api "+dato);   
+    }); 
+});
 }
 
 function IngresarEmpleado()
@@ -88,22 +85,24 @@ funcionAjax.then(function (dato)
     
     if(dato.status == 200)
     {
-        alert("El empleado "+dato.nombre+" fue ingresado correctamente");
-        window.location.replace("../enlaces/grillaEmpleados.html");
+        swal("El empleado "+dato.nombre+" fue ingresado correctamente").then(function(){
+        window.location.replace("../enlaces/grillaEmpleados.html");},
+        function(){
+        swal("ocurrio algo inesperado");});
     }
     else if(dato.status == 400)
     {
-        alert("ERROR. El empleado no pudo ser ingresado");
+        swal("ERROR. El empleado no pudo ser ingresado");
     }
 }, function (dato)
 {
-   alert("ERROR "+dato);
+   swal("ERROR "+dato);
 });
 }
 
 function ModificarEmpleado(id)
   {
-    localStorage.setItem("id",id);
+    localStorage.setItem("idEmpleadoModificacion",id);
     window.location.replace("../enlaces/modificarEmpleado.html");
   }
 

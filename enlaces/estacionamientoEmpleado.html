@@ -9,24 +9,44 @@
     <script src="../bower_components/bootstrapvalidator/dist/js/bootstrapValidator.min.js"></script>
     <script src="../bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
     <link rel="stylesheet" type="text/css" href="../estilos/estilos.css">
-    <script type="text/javascript" src="../js/ModificarHoraEmpleado.js"></script>
+    <script src="../bower_components/sweetalert2/dist/sweetalert2.min.js"></script>
+    <link rel="stylesheet" href="../bower_components/sweetalert2/dist/sweetalert2.min.css">
+    <script type="text/javascript" src="../js/CargarPagPrincipalEmpleado.js"></script>
         <title>Estacionamiento</title>
     </head>
     <body>
         <div class="container">
-        <div class="CajaInicio animated bounceInRight">
-        <a href="AltaOperacionEmpleado.html" class="btn btn-success" >
-        <span class="glyphicon glyphicon-plus"></span>
-        Estacionar</a>
-        <br>
-        <br>
-        <a href="SacarAutoEmpleado.html" class="btn btn-success" >
-        <span class="glyphicon glyphicon-minus"></span>
-        Sacar</a> 
-        <br>
-        <br>
-        <a href="login.html" class="btn btn-success">
-        <span class="glyphicon glyphicon-home"></span>
-        Salir y Volver a la página Principal</a>
+        <!--<div class="CajaInicio animated bounceInRight">-->
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav">
+        <li><a href="AltaOperacionEmpleado.html">Estacionar</a></li>
+        <li><a href="SacarAutoEmpleado.html">Sacar Auto</a></li>
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Autos<span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="grillaAutosEmpleado.html">Ver Autos</a></li>
+            <li role="separator" class="divider"></li>
+            <li><a href="AltaAutoEmpleado.html">Insertar Auto Nuevo</a></li>
+          </ul>
+        </li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><div id="usuario">Usuario</div></a> 
+          <ul class="dropdown-menu">
+            <li id="CerrarSesion"><button onclick="CerrarSesion()" id="BotonCerrarSesion"class="btn btn-primary btn-group-justified"><span class="glyphicon glyphicon-off"></span>Cerrar Sesión</button></li>
+          </ul> 
+        </li>
+      </ul>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
+        
+        </div><!-- Cierre Caja Inicio-->
+        </div><!--Cierre Container -->
     </body>
 </html>

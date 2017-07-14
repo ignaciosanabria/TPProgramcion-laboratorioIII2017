@@ -1,6 +1,6 @@
 $(document).ready(function () {
 
-    $("#FormIngresoEmpleado").bootstrapValidator({
+    $("#FormModificarEmpleado").bootstrapValidator({
         message: 'Este valor no es valido',
         feedbackIcons: {
             valid: 'glyphicon glyphicon-ok',

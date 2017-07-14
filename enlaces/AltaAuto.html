@@ -23,16 +23,13 @@
     <body>
         <div class="container">
          <div class="page-header">
-         <h1>Ingreso de vehículos al Estacionamiento</h1>
-         </div><!--Cierre Page Header -->
-         
-         <div class="CajaInicio animated bounceInRight">
-			<h1>Ingrese los datos del auto a ingresar
+             <h1>Ingreso de un nuevo Auto
             </h1>
-
+         </div><!--Cierre Page Header -->
+         <div class="CajaInicio animated bounceInRight">
 			<form id="FormIngreso" class="form-horizontal" method="POST" enctype="multipart/form-data" action="" >
-				
-                <div class="form-group">
+            <br>
+				<div class="form-group">
             <label for="" class="col-lg-4 control-label">Patente</label>
             <div class="col-lg-6">
                 <input type="text" class="form-control" name="patente" id="patente" placeholder="Ingrese Patente" maxlength="7">
@@ -61,20 +58,20 @@
         </div>
 
                <div class="form-group">
-            <div class="col-md-5 col-md-offset-3">
-                <button onclick="MostrarSweetAlert()" class="btn btn-danger">
-                <span class="glyphicon glyphicon-plus"></span>
+            <div class="col-lg-1 col-lg-offset-3">
+                <button onclick="IngresarAuto()" class="btn btn-success">
+                <span class="glyphicon glyphicon-ok"></span>
                 Aceptar</button>
-                <a href="grillaAutos.html" class="btn btn-primary">
-                <span class="glyphicon glyphicon-plus"></span>                                                
-                Cancelar</a>
-             </div>
-        </div>
+            </div>
+                <div class="col-lg-2 col-lg-offset-4">
+                <a href="estacionamiento.html" class="btn btn-danger"><span class="glyphicon glyphicon-remove"></span>Cancelar</a>
+                </div>
+               </div>
 
            
             </form>
-		
-		</div>
+
+		</div><!-- dierre caja Inicio -->
         </div><!-- Cierre Container-->
     </body>
 </html>

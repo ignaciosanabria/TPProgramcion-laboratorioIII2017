@@ -2,9 +2,9 @@
 function EnviarDatos()
 {
     var funcionAjax = $.ajax({
-    url : "../vendor/Usuario/ValidarUsuario",
+    url : "../vendor/Login/ValidarUsuario",
     method: "POST",
-    data: {mail: $("#mail").val(), clave: $("#clave").val(),horaLogin:$("#horaLogin").val()}
+    data: {mail: $("#mail").val(), clave: $("#clave").val()}
     });
     funcionAjax.then(function(dato){
         //PREGUNTAR A LOS PROFES POR QUE SE ENVIA DOS VECES EL RESPONSE
@@ -17,6 +17,8 @@ function EnviarDatos()
           'Usted esta registrado en la base de datos!',
           'success'
         ).then(function(){
+          localStorage.setItem("hora",dato.hora);
+          localStorage.setItem("idAdministrador",dato.id);
           window.location.replace("../enlaces/estacionamiento.html");
         },function(){
           swal('Algo inesperado ocurrio');
@@ -25,26 +27,32 @@ function EnviarDatos()
       else if(dato.status == "200" && dato.tipo == "empleado")
      {
        localStorage.setItem("hora",dato.hora);
-       if(dato.id == false)
-       {
-         console.log("ERROR en ingresar");
-       }
-       else
-       {
-           localStorage.setItem("idEmpleado",dato.id);
-       }
+       localStorage.setItem("idEmpleado",dato.id);
        swal(
          'USUARIO VÁLIDO!',
          'Usted esta registrado en la base de datos!',
          'success'
-       );
-       window.location.replace("../enlaces/estacionamientoEmpleado.html");
-    }
+       ).then(function(){
+         window.location.replace("../enlaces/estacionamientoEmpleado.html");
+       },function(){
+         swal('Ocurrio algo inesperado!');
+       });
+     }
   else
   {
-      alert("ERROR. Revise su mail y/o su contraseña!");
+     swal('USUARIO INCORRECTO!',
+     'Revise su correo electrónico y/o su contraseña',
+     'warning').then(function(){
+      location.reload();
+     });
   }
     },function(dato){
      alert("ERROR"+dato);
     });
+}
+
+function Registrarme()
+{
+  location.reload();
+  window.location.replace("../enlaces/registrar.html");
 }

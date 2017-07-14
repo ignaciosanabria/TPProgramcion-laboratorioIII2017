@@ -12,7 +12,6 @@ if($data["turno"] == "null")
 {
   $data["turno"] = "mañana";
 }
-$resp["datos"] = $data;
 $resp["status"] = 200;
 $resp["nombre"] = $data["nombre"];
 $empleado = new Empleado();
@@ -20,10 +19,6 @@ $empleado->SetLegajo($data["legajo"]);
 $empleado->SetNombre($data["nombre"]);
 $empleado->SetMail($data["mail"]);
 $empleado->SetClave($data["clave"]);
-// Cuando se ingresa el empleado, este no tiene operaciones
-$empleado->SetCantidadOperaciones(0);
-// La fecha de ingreso del empleado queda establecida cuando el se loguea
-$empleado->SetFechaIngreso(null);
 $empleado->SetTurno($data["turno"]);
 if(!Empleado::InsertarElEmpleado($empleado))
 {
@@ -65,12 +60,13 @@ public function ModificarEmpleado($request,$response,$args)
 {
 $id = $args['id'];
 $id = intval($id);
+$data = $request->getParsedBody();
 $empleado = Empleado::TraerElEmpleado($id);
-$resp["empleadoModificacion"] = $empleado;
 $empleado->SetLegajo($data["legajo"]);
 $empleado->SetNombre($data["nombre"]);
 $empleado->SetMail($data["mail"]);
 $empleado->SetClave($data["clave"]);
+$empleado->SetTurno($data["turno"]);
 $resp["status"] = 200;
 if(!Empleado::ModificarElEmpleado($empleado))
 {

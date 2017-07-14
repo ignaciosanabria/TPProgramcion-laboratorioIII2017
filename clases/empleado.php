@@ -7,8 +7,6 @@ public $nombre;
 public $legajo;
 public $mail;
 public $clave;
-public $cantidadOperaciones;
-public $fecha_ingreso;
 public $turno;
 
 //METODO GETTERS AND SETTERS
@@ -63,27 +61,6 @@ public function SetClave($valor)
     $this->clave = $valor;
 }
 
-
-public function GetCantidadOperaciones()
-{
-    return $this->cantidadOperaciones;
-}
-
-public function SetCantidadOperaciones($valor)
-{
-    $this->cantidadOperaciones = $valor;
-}
-
-public function GetFechaIngreso()
-{
-    return $this->fecha_ingreso;
-}
-
-public function SetFechaIngreso($valor)
-{
-    $this->fecha_ingreso = $valor;
-}
-
 public function GetTurno()
 {
     return $this->turno;
@@ -105,7 +82,7 @@ public function __construct()
 public static function TraerTodosLosEmpleados()
 {
     $objetoAccesoDato = AccesoDatos::dameUnObjetoAcceso();
-    $consulta = $objetoAccesoDato->RetornarConsulta("SELECT id as id, nombre as nombre, legajo as legajo, mail as mail, clave as clave, cantidadOperaciones as cantidadOperaciones, fecha_ingreso as fecha_ingreso, turno as turno from empleado");
+    $consulta = $objetoAccesoDato->RetornarConsulta("SELECT id as id, nombre as nombre, legajo as legajo, mail as mail, clave as clave, turno as turno from empleado");
     $consulta->execute();
     return $consulta->fetchAll(PDO::FETCH_CLASS,'empleado');
 }
@@ -121,7 +98,7 @@ public static function TraerElEmpleado($idEmpleado)
 public static function TraerElEmpleadoPorMailYClave($mail,$clave)
 {
     $objetoAccesoDato = AccesoDatos::dameUnObjetoAcceso();
-    $consulta = $objetoAccesoDato->RetornarConsulta(" SELECT * FROM `empleado` WHERE mail = '$mail' && clave = '$clave' ");
+    $consulta = $objetoAccesoDato->RetornarConsulta(" SELECT * FROM empleado WHERE mail = '$mail' && clave = '$clave' ");
     $consulta->execute();
     return $consulta->fetchObject('empleado');
 }
@@ -129,7 +106,7 @@ public static function TraerElEmpleadoPorMailYClave($mail,$clave)
 public static function InsertarElEmpleado($empleado)
 {
     $objetoAccesoDato = AccesoDatos::dameUnObjetoAcceso();
-    $consulta = $objetoAccesoDato->RetornarConsulta("INSERT INTO empleado (nombre, legajo, mail, clave, cantidadOperaciones, fecha_ingreso, turno)"."VALUES('$empleado->nombre','$empleado->legajo','$empleado->mail','$empleado->clave','$empleado->cantidadOperaciones','$empleado->fecha_ingreso','$empleado->turno')");
+    $consulta = $objetoAccesoDato->RetornarConsulta("INSERT INTO empleado (nombre, legajo, mail, clave, turno)"."VALUES('$empleado->nombre','$empleado->legajo','$empleado->mail','$empleado->clave','$empleado->turno')");
     return $consulta->execute();
 }
 
@@ -143,7 +120,7 @@ public static function BorrarElEmpleado($idEmpleado)
 public static function ModificarElEmpleado($empleado)
 {
     $objetoAccesoDato = AccesoDatos::dameUnObjetoAcceso();
-    $consulta = $objetoAccesoDato->RetornarConsulta("UPDATE empleado set nombre = '$empleado->nombre', legajo = '$empleado->legajo', mail = '$empleado->mail' , clave = '$empleado->clave', cantidadOperaciones = '$empleado->cantidadOperaciones', fecha_ingreso = '$empleado->fecha_ingreso', turno =  '$empleado->turno' where id = '$empleado->id'");
+    $consulta = $objetoAccesoDato->RetornarConsulta("UPDATE empleado set nombre = '$empleado->nombre', legajo = '$empleado->legajo', mail = '$empleado->mail' , clave = '$empleado->clave', turno =  '$empleado->turno' where id = '$empleado->id'");
     return $consulta->execute();
 }
 

@@ -1,8 +1,13 @@
 body {
   margin: 0 auto;
   color: blue;
-  background-image : url("fondoEstacionamiento.png");
+  background: url("fondoEstacionamiento.png") no-repeat center center fixed;
+-webkit-background-size: cover;
+-moz-background-size: cover;
+-o-background-size: cover;
+background-size: cover;
   font-family:'Open Sans',sans-serif;
+  font-size: 20px;
 }
 
 .CajaInicio {
@@ -23,12 +28,28 @@ body {
   font-weight:300;
   text-align:center;
   color:#fff;
+ -webkit-background-size: cover;
+-moz-background-size: cover;
+-o-background-size: cover;
+background-size: cover;
+}
+
+.CajaInicio p{
+  color: black;
+  font-size: 28px;
 }
 
 .CajaInicio a {
-    color: red;
+    color: white;
     text-align: center;
     font-family:'Open Sans',sans-serif;
+}
+
+.CajaInicio p{
+  color: black;
+  font-size: 30px;
+  font-family: 'Times New Roman', Times, serif;
+  font-weight:bold;
 }
 
 .MiBotonUTN {
@@ -67,6 +88,73 @@ legend{
   color: blue;
   text-decoration: black;
 }
+
+#imagenPrincipal{
+width: 85%;
+border: 3px solid black;
+}
+
+table{
+  background-color: black;
+  color: blue;
+}
+.navbar-default {
+    background-color: lightblue;
+    border-color: #030033;
+    border-width: 2px;
+    font-size : 18px;
+    font-family:Verdana,Helvetica;
+    font-weight:bold;
+}
+
+#BotonCerrarSesion{
+        font-size: 15px;
+        font-family:Verdana,Helvetica;
+        font-weight:bold;
+        color:red;
+        background:#638cb5;
+}
+
+form{
+  background: cadetblue;
+  font-size: 25px;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  font-weight:bold;
+}
+
+#loginInicioForm{
+        font-size: 20px;
+        font-family: 'Times New Roman', Times, serif;
+        font-weight:bold;
+        background: transparent;
+}
+
+#usuario{
+  font-size: 18px;
+        font-family: 'Times New Roman', Times, serif;
+        font-weight:bold;
+  color: black;
+}
+
+input[placeholder]{
+  color: black;
+}
+
+.page-header{
+  -webkit-background-size: cover;
+-moz-background-size: cover;
+-o-background-size: cover;
+background-size: cover;
+}
+
+#RegistrarForm{
+  background: lightgrey;
+  color : black;
+}
+
+
+
+
 
 
 

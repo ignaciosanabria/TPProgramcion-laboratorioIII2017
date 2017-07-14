@@ -10,7 +10,13 @@ window.onload = function(){
        for(i=0;i<dato.operaciones.length;i++)
        {
          tds += "<tr>";
-         tds += "<td>"+dato.operaciones[i].idAuto+"</td>"+"\n";
+         for(let x = 0;x<dato.autos.length;x++)
+         {
+             if(dato.operaciones[i].idAuto == dato.autos[x].id)
+             {
+                tds += "<td>"+dato.autos[x].patente+"</td>"+"\n";
+             }
+         }
          tds += "<td>"+dato.operaciones[i].fecha_ingreso+"</td>"+"\n";
          if(dato.operaciones[i].fecha_salida == "")
          {
@@ -28,18 +34,18 @@ window.onload = function(){
          {
             tds += "<td>"+dato.operaciones[i].importe+"</td>";
          }
-         for(j=0;j<dato.Cocheras.length;j++)
+         for(j=0;j<dato.cocheras.length;j++)
          {
-            if(dato.Cocheras[j].id == dato.operaciones[i].idCochera)
+            if(dato.cocheras[j].id == dato.operaciones[i].idCochera)
             {
-                tds += "<td>"+dato.Cocheras[j].numero+"</td>"+"\n";
+                tds += "<td>"+dato.cocheras[j].numero+"</td>"+"\n";
             }
          }
          for(k = 0;k<dato.empleados.length;k++)
          {
              if(dato.empleados[k].id == dato.operaciones[i].idEmpleado)
              {
-                tds += "<td>"+dato.empleados[i].nombre+"<td>";
+                tds += "<td>"+dato.empleados[k].nombre+"<td>";
              }
          }
          tds += "</tr>";
