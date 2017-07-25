@@ -26,13 +26,15 @@ window.onload = function(){
 
 function IngresarOperacion()
 {
-    let id = localStorage.getItem("idEmpleado");
+    var tokenUsuario = localStorage.getItem("token");
+    let idEmpleadoEntrada = localStorage.getItem("idEmpleado");
     var funcionAjax = $.ajax({
     //url : "../vendor/index.php/"
-    url : '../vendor/Operacion/IngresarOperacion',
+    url : '../vendor/Operacion_Entrada/IngresarOperacion',
     method : 'POST',
+    headers : {token : tokenUsuario},
     data : {idAuto:$("#idAuto").val(),idCochera:$("#idCochera").val(),fecha_ingreso:$("#fecha_ingreso").val(),
-    idEmpleado : id},
+    idEmpleado : idEmpleadoEntrada},
 });
   funcionAjax.then(function(dato)
 {
@@ -54,9 +56,30 @@ function IngresarOperacion()
     {
       swal("ERROR. no se pudo ingresar la operacion"+dato.status);
     }   
-}, function (dato)
+},function(dato)
 {
-        swal("ERROR. Hubo un error en el ingreso del auto al estacionamiento"+dato);
+        
+        swal("ERROR. Su tiempo de sesión se ha acabado!").then(function(){
+        let id = localStorage.getItem("idEmpleado");
+        var funcionAjax = $.ajax({
+        method : 'POST',
+        url : '../vendor/Login/CerrarSesion',
+        data : {idEmpleado : id}
+      });
+       funcionAjax.then(function(dato){
+         if(dato.status == 200)
+         {
+            localStorage.clear();
+            window.location.replace("../enlaces/login.html");
+         }
+         else if(dato.status == 400)
+         {
+          swal("Hubo un error al cerrar sesión del usuario!");
+         }
+      },function(dato){
+       console.log("ERROR en la API "+dato);
+       });
+        });
 });
 }
 
@@ -65,10 +88,13 @@ function IngresarOperacion()
 
 function SacarAuto()
 {
+    var idEmpleadoSalida = localStorage.getItem("idEmpleado");
+    var tokenUsuario = localStorage.getItem("token");
     var funcionAjax = $.ajax({
-    url : "../vendor/Operacion/SacarAuto",
+    url : "../vendor/Operacion_Salida/SacarAuto",
     method: 'POST',
-    data: {patente:$("#patente").val()},
+    headers : {token : tokenUsuario},
+    data: {patente:$("#patente").val(),idEmpleado : idEmpleadoSalida},
     });
     funcionAjax.then(function (dato)
 {
@@ -89,8 +115,29 @@ function SacarAuto()
       swal("ERROR. no se pudo sacar el auto"+dato.status);
  }
 },function (dato)
-{ 
-  alert("ERROR. Hubo un error en sacar al auto"+dato);  
+{
+        
+        swal("ERROR. Su tiempo de sesión se ha acabado!").then(function(){
+        let id = localStorage.getItem("idEmpleado");
+        var funcionAjax = $.ajax({
+        method : 'POST',
+        url : '../vendor/Login/CerrarSesion',
+        data : {idEmpleado : id}
+      });
+       funcionAjax.then(function(dato){
+         if(dato.status == 200)
+         {
+            localStorage.clear();
+            window.location.replace("../enlaces/login.html");
+         }
+         else if(dato.status == 400)
+         {
+          swal("Hubo un error al cerrar sesión del usuario!");
+         }
+      },function(dato){
+       console.log("ERROR en la API "+dato);
+       });
+        });
 });
 }
 
@@ -98,11 +145,13 @@ function SacarAuto()
 
 function IngresarAuto()
 {
+  var tokenUsuario = localStorage.getItem("token");
     var funcionAjax = $.ajax({
     //url : "../vendor/index.php/"
     url : '../vendor/Auto/InsertarAuto',
     method : 'POST',
-    data : {patente:$("#patente").val(),marca:$("#marca").val(),color:$("#color").val()},
+    headers : {token : tokenUsuario},
+    data : {patente:$("#patente").val(),marca:$("#marca").val(),color:$("#color").val()}
 });
   funcionAjax.then(function (dato)
 {
@@ -119,12 +168,37 @@ function IngresarAuto()
          swal('Ocurrio algo inesperado!');
        });
     }
-    else
+    else if(dato.status == 400)
     {
       swal("ERROR. el auto no pudo ser ingresado "+dato.status);
     }
+    else if(dato.status == 401)
+    {
+      swal("ERROR. La patente del auto que quiere ingresar ya se encuentra registrada!");
+    }
 }, function (dato)
 {
-        alert("ERROR. Hubo un error en el ingreso del auto al estacionamiento"+dato);
+        
+        swal("ERROR. Su tiempo de sesión se ha acabado!").then(function(){
+        let id = localStorage.getItem("idEmpleado");
+        var funcionAjax = $.ajax({
+        method : 'POST',
+        url : '../vendor/Login/CerrarSesion',
+        data : {idEmpleado : id}
+      });
+       funcionAjax.then(function(dato){
+         if(dato.status == 200)
+         {
+            localStorage.clear();
+            window.location.replace("../enlaces/login.html");
+         }
+         else if(dato.status == 400)
+         {
+          swal("Hubo un error al cerrar sesión del usuario!");
+         }
+      },function(dato){
+       console.log("ERROR en la API "+dato);
+       });
+        });
 });
 }

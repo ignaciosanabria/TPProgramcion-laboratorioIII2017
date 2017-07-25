@@ -6,18 +6,23 @@ window.onload = function(){
  funcionAjax.then(function(dato){
      console.log(dato);
      let StringEmpleados = " ";
-     for(let i = 0;i<dato.empleados.length;i++)
+     let arrayCajeros = dato.empleados.filter(function(elemento){
+         return elemento.cargo == 2;
+     });
+     for(let i = 0;i<arrayCajeros.length;i++)
      {
          StringEmpleados += "<tr>";
-         StringEmpleados += "<td>"+dato.empleados[i].legajo+"</td>";
-         StringEmpleados += "<td>"+dato.empleados[i].nombre+"</td>";
-         StringEmpleados += "<td>"+dato.empleados[i].mail+"</td>";
-         let clave = dato.empleados[i].clave.replace(dato.empleados[i].clave,"****");
-         StringEmpleados += "<td>"+clave+"</td>";
-         StringEmpleados += "<td>"+dato.empleados[i].turno+"</td>";
-         StringEmpleados += "<td>"+ "<button class='btn btn-danger' onclick=VerEmpleadoOperaciones("+dato.empleados[i].id+")><span class='glyphicon glyphicon-th-list'></span>Ver Operaciones</button>"+"</td>";
-         StringEmpleados += "<td>"+"<button class='btn btn-danger' onclick=BorrarEmpleado("+dato.empleados[i].id+")><span class='glyphicon glyphicon-remove'></span>Borrar</button>"+"</td>";
-         StringEmpleados += "<td>"+"<button class='btn btn-warning' onclick=ModificarEmpleado("+dato.empleados[i].id+")><span class='glyphicon glyphicon-edit'></span>Modificar</button>"+"</td>";
+         StringEmpleados += "<td>"+arrayCajeros[i].legajo+"</td>";
+         StringEmpleados += "<td>"+arrayCajeros[i].nombre+"</td>";
+         StringEmpleados += "<td>"+arrayCajeros[i].mail+"</td>";
+         //str.replace(/./g, '*');
+        //  let clave = arrayCajeros[i].clave.replace(arrayCajeros[i].clave,"****");
+         StringEmpleados += "<td>"+arrayCajeros[i].clave+"</td>";
+         StringEmpleados += "<td>"+arrayCajeros[i].turno+"</td>";
+         StringEmpleados += "<td>"+ "<button class='btn btn-danger' onclick=VerEmpleadoOperaciones("+arrayCajeros[i].id+")><span class='glyphicon glyphicon-th-list'></span>Ver Operaciones</button>"+"</td>";
+         StringEmpleados += "<td>"+ "<button class='btn btn-danger' onclick=VerEmpleadoSesiones("+arrayCajeros[i].id+")><span class='glyphicon glyphicon-th-list'></span>Ver Fechas de Logueo</button>"+"</td>";
+         StringEmpleados += "<td>"+"<button class='btn btn-danger' onclick=BorrarEmpleado("+arrayCajeros[i].id+")><span class='glyphicon glyphicon-remove'></span>Borrar</button>"+"</td>";
+         StringEmpleados += "<td>"+"<button class='btn btn-warning' onclick=ModificarEmpleado("+arrayCajeros[i].id+")><span class='glyphicon glyphicon-edit'></span>Modificar</button>"+"</td>";
          StringEmpleados += "</tr>";
      }
      document.getElementById("empleados").innerHTML = StringEmpleados;
@@ -29,7 +34,8 @@ window.onload = function(){
 
 function BorrarEmpleado(id)
 {
-    swal({
+  var tokenUsuario = localStorage.getItem("token");
+  swal({
   title: 'Desea borrar el empleado seleccionado?',
   type: 'warning',
   showCancelButton: true,
@@ -41,7 +47,8 @@ function BorrarEmpleado(id)
 }).then(function () {
     var funcionAjax = $.ajax({
          url : "../vendor/Empleado/BorrarElEmpleado/"+id,
-        method : "DELETE"
+        method : "DELETE",
+    headers : {token : tokenUsuario}
         });
     funcionAjax.then(function(dato){
      if(dato.status == 200)
@@ -53,9 +60,31 @@ function BorrarEmpleado(id)
      {
          swal("ERROR. El empleado no pudo ser borrada");
      }
-    },function(dato){
-       swal("ERROR en la Api "+dato);   
-    }); 
+    },function(dato)
+{
+        
+        swal("ERROR. Su tiempo de sesión se ha acabado!").then(function(){
+        let id = localStorage.getItem("idEmpleado");
+        var funcionAjax = $.ajax({
+        method : 'POST',
+        url : '../vendor/Login/CerrarSesion',
+        data : {idEmpleado : id}
+      });
+       funcionAjax.then(function(dato){
+         if(dato.status == 200)
+         {
+            localStorage.clear();
+            window.location.replace("../enlaces/login.html");
+         }
+         else if(dato.status == 400)
+         {
+          swal("Hubo un error al cerrar sesión del usuario!");
+         }
+      },function(dato){
+       console.log("ERROR en la API "+dato);
+       });
+        });
+});
 });
 }
 
@@ -66,6 +95,7 @@ function IngresarEmpleado()
    var mail = $("#mail").val();
    var clave = $("#clave").val();
    var turno = $("#turno").val();
+   var tokenUsuario = localStorage.getItem("token");
    var dataEnvio = new FormData("FormIngresoEmpleado");
    dataEnvio.append("legajo",legajo);
    dataEnvio.append("nombre",nombre);
@@ -78,7 +108,8 @@ function IngresarEmpleado()
    method : "POST",
    cache: false,
    contentType: false,
-   processData: false
+   processData: false,
+    headers : {token : tokenUsuario}
 });
 funcionAjax.then(function (dato)
 {
@@ -94,9 +125,30 @@ funcionAjax.then(function (dato)
     {
         swal("ERROR. El empleado no pudo ser ingresado");
     }
-}, function (dato)
+},function(dato)
 {
-   swal("ERROR "+dato);
+        
+        swal("ERROR. Su tiempo de sesión se ha acabado!").then(function(){
+        let id = localStorage.getItem("idEmpleado");
+        var funcionAjax = $.ajax({
+        method : 'POST',
+        url : '../vendor/Login/CerrarSesion',
+        data : {idEmpleado : id}
+      });
+       funcionAjax.then(function(dato){
+         if(dato.status == 200)
+         {
+            localStorage.clear();
+            window.location.replace("../enlaces/login.html");
+         }
+         else if(dato.status == 400)
+         {
+          swal("Hubo un error al cerrar sesión del usuario!");
+         }
+      },function(dato){
+       console.log("ERROR en la API "+dato);
+       });
+        });
 });
 }
 
@@ -108,7 +160,13 @@ function ModificarEmpleado(id)
 
   function VerEmpleadoOperaciones(id)
   {
-      localStorage.setItem("idEmpleado",id);
+      localStorage.setItem("idEmpleadoOperacion",id);
       window.location.replace("../enlaces/verOperacionesEmpleado.html");
+  }
+
+  function VerEmpleadoSesiones(id)
+  {
+      localStorage.setItem("idEmpleadoSesion",id);
+      window.location.replace("../enlaces/grillaSesiones.html");
   }
 

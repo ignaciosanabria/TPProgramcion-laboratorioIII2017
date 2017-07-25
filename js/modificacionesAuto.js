@@ -18,8 +18,10 @@ window.onload = function(){
 function HacerModificacion()
 {
     var idAuto = localStorage.getItem("idAuto");
+    var tokenUsuario = localStorage.getItem("token");
     var funcionAjax = $.ajax({
     url : "../vendor/Auto/ModificarElAuto/"+idAuto,
+    headers : {token : tokenUsuario},
     data : {patente:$("#patente").val(),marca:$("#marca").val(),color:$("#color").val()},
     method : "PUT"
 });
@@ -38,7 +40,29 @@ function HacerModificacion()
        {
            swal("ERROR el auto no pudo ser modificado "+dato.status);
        }
-   }, function(dato){
-      swal("ERROR. "+dato);
-   });
+   },function(dato)
+{
+        
+        swal("ERROR. Su tiempo de sesión se ha acabado!").then(function(){
+        let id = localStorage.getItem("idEmpleado");
+        var funcionAjax = $.ajax({
+        method : 'POST',
+        url : '../vendor/Login/CerrarSesion',
+        data : {idEmpleado : id}
+      });
+       funcionAjax.then(function(dato){
+         if(dato.status == 200)
+         {
+            localStorage.clear();
+            window.location.replace("../enlaces/login.html");
+         }
+         else if(dato.status == 400)
+         {
+          swal("Hubo un error al cerrar sesión del usuario!");
+         }
+      },function(dato){
+       console.log("ERROR en la API "+dato);
+       });
+        });
+});
 }

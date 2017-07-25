@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="../bower_components/bootstrap/dist/css/bootstrap.css" rel="stylesheet">
+    <link href="../bower_components/bootstrapValidator/dist/css/bootstrapValidator.css" rel="stylesheet">
+    <script type="text/javascript" src="../bower_components/moment/min/moment.min.js"></script>
+    <script src="../bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="../bower_components/bootstrapvalidator/dist/js/bootstrapValidator.min.js"></script>
+    <script src="../bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="../estilos/estilos.css">
+      <script type="text/javascript" src="../bower_components/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js"></script>
+  <link rel="stylesheet" href="../bower_components/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css" />
+    <script src="../bower_components/sweetalert2/dist/sweetalert2.min.js"></script>
+    <link rel="stylesheet" href="../bower_components/sweetalert2/dist/sweetalert2.min.css">
+    <script type="text/javascript" src="../js/funcionesOperacionesAdministrador.js">
+    </script>
+    <script type="text/javascript" src="../js/validadorOperacionEmpleado.js">
+    </script>
+    <script type="text/javascript" src="../js/vistaEmpleado.js"></script>
+        <title>Ingresar Operacion</title>
+    </head>
+    <body>
+        <div class="container">
+         <div class="page-header">
+         <h1>Ingreso de operacion al Estacionamiento</h1>
+         </div><!--Cierre Page Header -->
+         
+         <div class="CajaInicio animated bounceInRight">
+		<h1>Ingrese el numero del auto con su fecha de ingreso y el numero de cochera donde va a estacionarlo
+            </h1>
+
+			<form id="FormIngreso" class="form-horizontal" method="POST" enctype="multipart/form-data" action="" >
+				
+            <div class="form-group">
+              <label for="" class="col-lg-4 control-label">Auto</label>
+            <div class="col-lg-6">
+                 <select id="idAuto" name="idAuto" class="form-control">
+               
+                 </select>
+                 </div>               
+             </div>
+
+        <div class="form-group">
+            <label for="" class="col-lg-4 control-label">Fecha de Ingreso</label>
+            <div class="col-lg-6">
+                <div class="dateContainer">
+              <div class="input-group date" id="datetimePicker">
+                <input type="text" class="form-control" name="fecha_ingreso" id="fecha_ingreso" placeholder="YYYY/DD/MM h:m" />
+                <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+               </div>
+             </div>
+            </div>
+        </div>
+                
+
+
+                <div class="form-group">
+            <label for="" class="col-lg-4 control-label">Cochera</label>
+            <div class="col-lg-6">
+               <select id="idCochera" name = "idCochera"class="form-control">
+                
+                <select>
+            </div>
+        </div>
+
+
+               <div class="form-group">
+            <div class="col-lg-1 col-lg-offset-3">
+                <button onclick="IngresarOperacion()" class="btn btn-success">
+                <span class="glyphicon glyphicon-ok"></span>
+                Aceptar</button>
+            </div>
+                <div class="col-lg-2 col-lg-offset-4">
+                <a href="estacionamiento.html" class="btn btn-danger"><span class="glyphicon glyphicon-remove"></span>Cancelar</a>
+                </div>
+               </div>
+
+           
+            </form>
+		
+		</div>
+        </div><!-- Cierre Container-->
+    </body>
+</html>

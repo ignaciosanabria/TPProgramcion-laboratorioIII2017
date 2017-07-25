@@ -28,9 +28,9 @@
 		<div class="CajaInicio animated bounceInRight">
 			<h1>Listado de AUTOS</h1>
 
-
-            <table class='table'>
-		<thead>
+    <div class="table-responsive">
+            <table class='table table-bordered table-hover'>
+		<thead id="tablaEncabezado">
 			<tr>
 				<th>  PATENTE    </th>
 				<th>  MARCA </th>
@@ -45,6 +45,17 @@
 
             </table>
 
+		</div>
+		<form action="descargarListaAutosExcel.php">
+			<div class="form-group">
+            <div class="col-lg-1 col-lg-offset-3">
+			<button type="submit" name="descargarExcel" id="descargarExcel" class="btn btn-lg btn-success"><span class="glyphicon glyphicon-download-alt"></span> Descargar Excel</button>
+            </div>
+			</div>
+		</form>
+		<div class="col-lg-4 col-lg-offset-2">
+		<a href="Archivos/descargarListaAutosPDF.php" class="btn btn-lg btn-danger" target="_blank"><span class="glyphicon glyphicon-download-alt"></span> Descargar PDF</a>
+		</div>
 		</div>
 	</div>
 </body>

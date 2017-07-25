@@ -8,7 +8,7 @@ function EnviarDatos()
     });
     funcionAjax.then(function(dato){
         //PREGUNTAR A LOS PROFES POR QUE SE ENVIA DOS VECES EL RESPONSE
-      if(dato.status == "200" && dato.tipo == "administrador")
+      if(dato.status == "200" && dato.tipo == "Administrador")
       {
       //console.log(dato);
       //alert("El mail y la clave estan en la base de datos");
@@ -18,16 +18,18 @@ function EnviarDatos()
           'success'
         ).then(function(){
           localStorage.setItem("hora",dato.hora);
-          localStorage.setItem("idAdministrador",dato.id);
+          localStorage.setItem("idEmpleado",dato.id);
+          localStorage.setItem("token",dato.token);
           window.location.replace("../enlaces/estacionamiento.html");
         },function(){
           swal('Algo inesperado ocurrio');
         });
       }
-      else if(dato.status == "200" && dato.tipo == "empleado")
+      else if(dato.status == "200" && dato.tipo == "Cajero")
      {
        localStorage.setItem("hora",dato.hora);
        localStorage.setItem("idEmpleado",dato.id);
+       localStorage.setItem("token",dato.token);
        swal(
          'USUARIO VÁLIDO!',
          'Usted esta registrado en la base de datos!',
@@ -47,7 +49,7 @@ function EnviarDatos()
      });
   }
     },function(dato){
-     alert("ERROR"+dato);
+     console.log("ERROR"+dato);
     });
 }
 

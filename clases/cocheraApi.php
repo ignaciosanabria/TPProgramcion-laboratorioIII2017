@@ -35,77 +35,69 @@ $cochera = Cochera::TraerLaCochera($id);
 return $response->withJson($cochera);
 }
 
+public function TraerMasUtilizada($request, $response, $args)
+	{
+      $datos = $request->getParsedBody();
+      $cocherasUsadas = Cochera::TraerCocherasUtilizadas($datos["fecha_desde"],$datos["fecha_hasta"]);
+      $arrayTodasLasCocheras = Cochera::TraerTodasLasCocheras();
+      $resp["cocheras"] = $arrayTodasLasCocheras;
+      $resp["cocheraUsadas"] = $cocherasUsadas;
+      $mayor = $cocherasUsadas[0]["cantidad"];
+      for($i = 0; $i < count($cocherasUsadas); $i++)
+      {
+          if($cocherasUsadas[$i]["cantidad"] > $mayor)
+             {
+                 $mayor = $cocherasUsadas[$i][$cantidad];
+                 $resp["cocheraMasUtilizada"] = $cocherasUsadas[$i]["cochera"];
+                 $resp["vecesDeUso"] = $cocherasUsadas[$i]["cantidad"];
+             }
+      }
+      return $response->withJson($resp);
+    }
 
-public function InsertarCochera($request,$response,$args)
-{
-$data = $request->getParsedBody();
-$resp["status"] = 200;
-$data["numero"] = intval($data["numero"]);
-$data["piso"] = intval($data["piso"]);
-if($data["prioridad"] == "0")
-{
-    $data["prioridad"] = chr(0);
-}
-else
-{
-    $data["prioridad"] = chr(1);
-}
-$cochera = new Cochera();
-$cochera->SetNumero($data["numero"]);
-$cochera->SetPiso($data["piso"]);
-$cochera->SetPrioridad($data["prioridad"]);
-$cochera->SetVecesDeUso(0);
-if(!Cochera::InsertarLaCochera($cochera))
-{
-    $resp["status"] = 400;
-}
-return $response->withJson($resp);
-}
+    public function TraerMenosUtilizada($request, $response, $args)
+    {
+      $datos = $request->getParsedBody();
+      $cocherasUsadas = Cochera::TraerCocherasUtilizadas($datos["fecha_desde"],$datos["fecha_hasta"]);
+      $arrayTodasLasCocheras = Cochera::TraerTodasLasCocheras();
+      $resp["cocheras"] = $arrayTodasLasCocheras;
+      $resp["cocheraUsadas"] = $cocherasUsadas;
+      $menor = $cocherasUsadas[0]["cantidad"];
+      for($i = 0; $i < count($cocherasUsadas); $i++)
+      {
+          if($cocherasUsadas[$i]["cantidad"] <= $menor)
+             {
+                 $menor = $cocherasUsadas[$i][$cantidad];
+                 $cocheraMenor = $cocherasUsadas[$i]["cochera"];
+                 $vecesDeUso = $cocherasUsadas[$i]["cantidad"];
+             }
+      }
+      $resp["cocheraMenosUtilizada"] = $cocheraMenor;
+      $resp["vecesDeUso"] = $vecesDeUso;
+      return $response->withJson($resp);
+    }
+
+    public function TraerSinUso($request, $response, $args)
+    {
+         $datos = $request->getParsedBody();
+         $cocherasUsadas = Cochera::TraerCocherasUtilizadas($datos["fecha_desde"],$datos["fecha_hasta"]);
+         $arrayTodasLasCocheras = Cochera::TraerTodasLasCocheras();
+
+         for($i=0; $i < count($arrayTodasLasCocheras);$i++)
+         {
+             for($y = 0; $y<count($cocherasUsadas);$y++)
+             {
+                if($arrayTodasLasCocheras[$i]->id == $cocherasUsadas[$y]["cochera"])
+                {
+                    unset($arrayTodasLasCocheras[$i]);
+                }
+             }
+         }
+         $resp["cocherasSinUso"] = $arrayTodasLasCocheras;
+         return $response->withJson($resp);
+    }
 
 
-public function BorrarCochera($request,$response,$args)
-{
-$resp["status"] = 200;
-$id = $args['id'];
-$id = intval($id);
-if(!Cochera::BorrarLaCochera($id))
-{
-    $resp["status"] = 400;
-}
-return $response->withJson($resp);
-}
-
-public function ModificarCochera($request,$response,$args)
-{
-$data = $request->getParsedBody();
-$id = $args['id'];
-$id = intval($id);
-$resp["status"] = 200;
-$cochera = Cochera::TraerLaCochera($id);
-if($cochera->idAuto == NULL)
-{
-$cochera->SetNumero($data["numero"]);
-$cochera->SetPiso($data["piso"]);
-if($data["prioridad"] == 0)
-{
-    $cochera->SetPrioridad(chr(0));
-}
-else if($data["prioridad"] == 1)
-{
-    $cochera->SetPrioridad(chr(1));
-}
-
-if(!Cochera::ModificarLaCochera($cochera))
-{
-    $resp["status"] = 400;
-}
-}
-else
-{
-    $resp["status"] = 401;
-}
-return $response->withJson($resp);
-}
 
 }
 ?>

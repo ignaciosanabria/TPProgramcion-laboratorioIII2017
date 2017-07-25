@@ -30,6 +30,11 @@ return $response->withJson($resp);
 public function TraerEmpleados($request, $response, $args)
 {
 $arrayEmpleados = Empleado::TraerTodosLosEmpleados();
+for($i = 0; $i < count($arrayEmpleados); $i++)
+{
+    $password = str_repeat("*", strlen($arrayEmpleados[$i]->clave));
+    $arrayEmpleados[$i]->clave = $password; 
+}
 $resp["empleados"] = $arrayEmpleados;
 $response = $response->withJson($resp);
 return $response;

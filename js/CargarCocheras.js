@@ -32,11 +32,6 @@ funcionAjax.then(function(dato){
       {
            stringCocheras += "<td>"+"SIN PRIORIDAD"+"</td>";
       }
-       stringCocheras += "<td>"+dato.cocheras[i].vecesDeUso+"</td>";
-       stringCocheras += "<td>"+"<button class='btn btn-danger' onclick=BorrarCochera("+dato.cocheras[i].id+")>"+
-       "<span class='glyphicon glyphicon-remove'></span>Borrar</td>";
-       stringCocheras += "<td>"+"<button class='btn btn-warning' onclick=ModificarCochera("+dato.cocheras[i].id+")>"+
-       "<span class='glyphicon glyphicon-edit'></span>Modificar</td>";
        stringCocheras += "</tr>";  
     }
     document.getElementById("cocheras").innerHTML = stringCocheras;

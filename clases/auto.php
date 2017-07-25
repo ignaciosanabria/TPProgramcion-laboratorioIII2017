@@ -103,6 +103,20 @@ public static function TraerElAutoPorPatente($patente)
     return $consulta->fetchObject("auto");
 }
 
+public static function VerificarPatente($patente)
+{
+    $retorno = true;
+    $arrayAutos = Auto::TraerTodosLosAutos();
+    foreach($arrayAutos as $auto)
+    {
+      if($patente == $auto->patente)
+      {
+          $retorno = false;
+      }
+    }
+    return $retorno;
+}
+
 
 
 }

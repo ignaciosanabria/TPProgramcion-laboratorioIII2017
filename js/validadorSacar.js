@@ -14,10 +14,6 @@ $(document).ready(function () {
                     notEmpty: {
                         message: 'La patente es requerida'
                     },
-                    regexp: {
-                        regexp: /([A-Z])\w{2}\s([0-9])\w{2}/g,
-                        message: 'La patente debe contener tres letras y tres numeros'
-                    }
                     
                 }
             }

@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="../bower_components/sweetalert2/dist/sweetalert2.min.css">
     <script type="text/javascript" src="../js/funcionesAutoOperacionEmpleado.js">
     </script>
+    <script type="text/javascript" src="../js/cargarAutosEstacionados.js"></script>
     <script type="text/javascript" src="../js/validadorSacar.js">
     </script>
         <title>Ingresar Patente</title>
@@ -28,11 +29,13 @@
                          <form id="FormSacar" method="post" class="form-horizontal" action="" >
                           
                           <div class="form-group">
-                          <label for="" class="col-lg-4 control-label">Patente</label>
-                         <div class="col-lg-6">
-                          <input type="text" class="form-control" name="patente" id="patente" placeholer="Ingrese patente" maxlength="7">
-                      </div>
-                      </div>
+              <label for="" class="col-lg-4 control-label">Auto</label>
+            <div class="col-lg-6">
+                 <select id="patente" name="patente" class="form-control">
+               
+                 </select>
+                 </div>               
+             </div>
                             
                      <div class="form-group">
             <div class="col-lg-1 col-lg-offset-3">

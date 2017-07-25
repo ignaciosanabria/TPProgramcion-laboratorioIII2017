@@ -13,6 +13,8 @@ public function InsertarAuto($request, $response, $args)
 {
 $datos = $request->getParsedBody();
 $resp["status"] = 200;
+if(Auto::VerificarPatente($datos['patente']))
+{
 $auto = new Auto();
 $auto->patente = $datos['patente'];
 $auto->color = $datos['color'];
@@ -20,6 +22,11 @@ $auto->marca = $datos['marca'];
 if(!Auto::InsertarElAuto($auto))
 {
  $resp["status"] = 400;
+}
+}
+else
+{
+  $resp["status"] = 401;
 }
 return $response->withJson($resp);
 }

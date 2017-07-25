@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Lista de Sesiones del Empleado</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="../bower_components/bootstrap/dist/css/bootstrap.css" rel="stylesheet">
+    <link href="../bower_components/bootstrapValidator/dist/css/bootstrapValidator.css" rel="stylesheet">
+    <script src="../bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="../bower_components/bootstrapvalidator/dist/js/bootstrapValidator.min.js"></script>
+    <script src="../bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="../estilos/estilos.css">
+	<script src="../bower_components/sweetalert2/dist/sweetalert2.min.js"></script>
+    <link rel="stylesheet" href="../bower_components/sweetalert2/dist/sweetalert2.min.css">
+    <script type="text/javascript" src="../js/cargarEmpleadoSesiones.js"></script>
+</head>
+<body>
+	<a class="btn btn-info" href="grillaEmpleados.html">
+	<span class="glyphicon glyphicon-home"></span>
+	Volver al Menú Principal</a>
+
+	<div class="container">
+		<div class="page-header">
+			<h1>Sesiones del Empleado</h1>      
+		</div>
+		<div class="CajaInicio animated bounceInRight">
+			<h1>Listado de SESIONES</h1>
+
+     <div class="table-responsive">
+            <table class='table table-bordered table-hover' >
+		<thead id="tablaEncabezado">
+			<tr>
+                <th>Fecha que entro</th>
+                <th>Fecha que salió</th>
+			</tr> 
+		</thead>
+        <thead id="sesionesEmpleados">
+        </thead>
+            </table>
+     </div>
+		</div>
+	</div>
+</body>
+</html>
