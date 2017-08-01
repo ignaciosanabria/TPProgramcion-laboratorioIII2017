@@ -143,5 +143,39 @@ class Operacion_Salida
 	    return $facturacion;
     }
 
+   //CALCULAR FACTURACION DE CADA VEHICULO Y CANTIDAD DE VEHICULOS - SACAR FACTURACION CON COUNT PHP
+   //SELECT SUM(importe), operacion_salida.idAuto FROM operacion_salida WHERE fecha_salida BETWEEN '07/23/2017 4:PM' AND '07/28/2017 7:00 PM' GROUP BY operacion_salida.idAuto
+
+  public static function CalcularFacturacionEntreFechas($fecha_desde,$fecha_hasta)
+  {
+    $objetoAccesoDato = AccesoDatos::DameUnObjetoAcceso(); 
+	$consulta = $objetoAccesoDato->RetornarConsulta("SELECT SUM(importe) as importesAcumulados , auto.patente as auto FROM operacion_salida INNER JOIN auto ON operacion_salida.idAuto = auto.id WHERE fecha_salida BETWEEN '$fecha_desde' AND '$fecha_hasta' GROUP BY operacion_salida.idAuto");
+    $consulta->execute();
+    return $consulta->fetchAll(PDO::FETCH_ASSOC);
+  }
+
+
+  //CALCUCLAR FACTURACION DE CADA VEHICULO Y CANTIDAD DE VEHICULOS (TRAIDOS POR SUS PATENTES) - SACAR FACTURACION CON COUNT PHP
+  //SELECT SUM(importe) as importe , auto.patente as auto FROM operacion_salida INNER JOIN auto ON operacion_salida.idAuto = auto.id WHERE fecha_salida BETWEEN '07/23/2017 4:00 PM' AND '07/28/2017 7:00 PM' GROUP BY operacion_salida.idAuto
+
+
+  public static function VerPromedioDeImportes($fecha_desde, $fecha_hasta)
+  {
+      //SELECT importe AS importe, auto.patente AS auto, fecha_salida AS fecha_salida FROM operacion_salida INNER JOIN auto ON operacion_salida.idAuto = auto.id WHERE fecha_salida BETWEEN  '07/15/2017 4:00 PM' AND  '07/28/2017 5:00 PM' GROUP BY operacion_salida.id ORDER BY idAuto
+    $objetoAccesoDato = AccesoDatos::DameUnObjetoAcceso(); 
+	$consulta = $objetoAccesoDato->RetornarConsulta("SELECT importe AS importe, auto.patente AS auto, fecha_salida AS fecha_salida FROM operacion_salida INNER JOIN auto ON operacion_salida.idAuto = auto.id WHERE fecha_salida BETWEEN  '$fecha_desde' AND  '$fecha_hasta' GROUP BY operacion_salida.id ORDER BY idAuto");
+    $consulta->execute();
+    return $consulta->fetchAll(PDO::FETCH_ASSOC);
+  }
+
+  public static function ExportarAutosQueSalieron($fecha_desde, $fecha_hasta)
+  {
+      //SELECT fecha_salida as fecha_salida, auto.patente as auto, CONCAT(empleado.nombre, ' ' , empleado.apellido) as empleado, importe as importe FROM operacion_salida INNER JOIN auto ON auto.id = operacion_salida.idAuto INNER JOIN empleado ON operacion_salida.idEmpleado = empleado.id WHERE fecha_salida BETWEEN '07/15/2017 4:00 PM' AND '07/28/2017 5:00 PM' ORDER BY fecha_salida
+      $objetoAcceso = AccesoDatos::DameUnObjetoAcceso(); 
+	  $consulta = $objetoAcceso->RetornarConsulta("SELECT fecha_salida as fecha_salida, auto.patente as auto, CONCAT(empleado.nombre, ' ' , empleado.apellido) as empleado, importe as importe FROM operacion_salida INNER JOIN auto ON auto.id = operacion_salida.idAuto INNER JOIN empleado ON operacion_salida.idEmpleado = empleado.id WHERE fecha_salida BETWEEN '$fecha_desde' AND '$fecha_hasta' ORDER BY fecha_salida");
+      $consulta->execute();
+      return $consulta->fetchAll(PDO::FETCH_ASSOC);
+  }
+
 }
 ?>

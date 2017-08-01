@@ -171,10 +171,35 @@ public static function VerificarSiCocheraEstaDisponible($idCochera,$idAuto)
 public static function TraerCocherasUtilizadas($fecha_desde, $fecha_hasta)
 {
     $objetoAccesoDato = AccesoDatos::DameUnObjetoAcceso();
-    $consulta = $objetoAccesoDato->RetornarConsulta("SELECT operacion_entrada.idCochera as cochera, count(t.id) as cantidad from (SELECT id from operacion_entrada where fecha_ingreso BETWEEN '07/23/2017 12:00 PM' and '07/25/2017 2:00 PM')t inner join operacion_entrada on t.id = operacion_entrada.id GROUP BY idCochera HAVING COUNT(idCochera) ORDER BY COUNT(idCochera)");
+    //$consulta = $objetoAccesoDato->RetornarConsulta("SELECT operacion_entrada.idCochera as cochera, count(t.id) as cantidad from (SELECT id from operacion_entrada where fecha_ingreso BETWEEN '07/23/2017 12:00 PM' and '07/25/2017 2:00 PM')t inner join operacion_entrada on t.id = operacion_entrada.id GROUP BY idCochera HAVING COUNT(idCochera) ORDER BY COUNT(idCochera)");
+    //SELECT operacion_entrada.idCochera as cochera, COUNT(*) AS cantidad FROM operacion_entrada WHERE fecha_ingreso BETWEEN '07/21/2017 8:00 AM' AND '07/25/2017 1:34 PM' GROUP BY idCochera ORDER BY `cantidad` DESC
+    $consulta = $objetoAccesoDato->RetornarConsulta("SELECT operacion_entrada.idCochera as cochera, COUNT(*) AS cantidad FROM operacion_entrada WHERE fecha_ingreso BETWEEN '$fecha_desde' AND '$fecha_hasta' GROUP BY idCochera ORDER BY `cantidad` DESC");
     $consulta->execute();
     return $consulta->fetchAll(PDO::FETCH_ASSOC);
 }
+
+public static function TraerCocherasSinUso($fecha_desde,$fecha_hasta)
+{
+   $objetoAccesoDato = AccesoDatos::DameUnObjetoAcceso();
+   $consulta = $objetoAccesoDato->RetornarConsulta("SELECT * from cochera where not exists (select * from operacion_entrada where idCochera = cochera.id && fecha_ingreso BETWEEN '$fecha_desde' and '$fecha_hasta')");
+   $consulta->execute();
+   return $consulta->fetchAll(PDO::FETCH_CLASS,'cochera');
+}
+
+//CANTIDAD DE VECES QUE VINO EL MISMO AUTO
+//SELECT operacion_entrada.idAuto as auto, COUNT(*) AS cantidad FROM operacion_entrada WHERE fecha_ingreso BETWEEN '07/21/2017 9:00 AM' AND '07/26/2017 8:00 PM' GROUP BY idAuto ORDER BY cantidad DESC
+//AUTOS DISTINTOS QUE VINIERON AL ESTACIONAMIENTO
+//SELECT patente as auto from auto where exists (select * from operacion_entrada where idAuto = auto.id && fecha_ingreso BETWEEN '07/21/2017 9:00 AM' and '07/26/2017 8:00 PM')
+//FACTURACION - CANTIDAD DE VEHICULOS 
+// SELECT sum(operacion_salida.importe), COUNT(idAuto) from operacion_salida where fecha_salida BETWEEN '07/23/2017 05:00 PM' and '07/26/2017 10:00 PM'
+//CANTIDAD DE OPERACIONES DE EMPLEADO
+//SELECT operacion_entrada.idEmpleado as empleado, COUNT(*) AS cantidad FROM operacion_entrada WHERE fecha_ingreso BETWEEN '07/21/2017 9:00 AM' AND '07/26/2017 8:00 PM' GROUP BY idEmpleado ORDER BY cantidad DESC
+//PROMEDIO DE COCHERA Y USUARIO - EMPLEADO
+//SELECT operacion_entrada.idCochera as cochera, CONCAT(empleado.nombre," ",empleado.apellido) as empleado, COUNT(*) AS cantidad FROM operacion_entrada INNER JOIN empleado ON empleado.id = operacion_entrada.idEmpleado WHERE fecha_ingreso BETWEEN '07/15/2017 8:00 AM' AND '07/28/2017 8:00 AM' GROUP BY idCochera, idEmpleado ORDER BY operacion_entrada.idEmpleado ASC
+//PROMEDIO DE COCHERA Y USUARIO - PATENTE
+//SELECT operacion_entrada.idCochera AS cochera, auto.patente AS auto, COUNT( * ) AS cantidad FROM operacion_entrada INNER JOIN auto ON auto.id = operacion_entrada.idAuto WHERE fecha_ingreso BETWEEN  '07/15/2017 8:00 AM' AND  '07/28/2017 8:00 AM' GROUP BY idCochera, idAuto ORDER BY operacion_entrada.idAuto ASC 
+//PROMEDIO DE PATENES - VECES QUE VINO ESA PATENTE
+//SELECT auto.patente as auto, COUNT(*) AS vecesQueVino FROM operacion_entrada INNER JOIN auto ON operacion_entrada.idAuto = auto.id WHERE fecha_ingreso BETWEEN '07/15/2017 8:00 AM' AND '07/28/2017 9:00 AM' GROUP BY operacion_entrada.idAuto ORDER BY `vecesQueVino` DESC
 
 public static function TraerPisoPorId($id)
 {
@@ -185,6 +210,25 @@ public static function TraerPisoPorId($id)
 	    return $piso;
 }
 
+    //Select * from cochera where not exists (select * from operacion_entrada where idCochera = cochera.id)
+    //SELECT * from cochera where not exists (select * from operacion_entrada where idCochera = cochera.id && fecha BETWEEN 07/21/2017 6:00 AM and 07/25/2017 4:00 PM
+
+
+public static function VerUsoDeCocherasSinPrioridad($fecha_desde, $fecha_hasta)
+{
+    $objetoAccesoDato = AccesoDatos::DameUnObjetoAcceso();
+    $consulta = $objetoAccesoDato->RetornarConsulta("SELECT cochera.id as cochera, COUNT(*) AS cantidad , cochera.prioridad as prioridad FROM operacion_entrada INNER JOIN cochera ON operacion_entrada.idCochera = cochera.id && cochera.prioridad = 0 WHERE fecha_ingreso BETWEEN '$fecha_desde' AND '$fecha_hasta' GROUP BY idCochera ORDER BY `cantidad` DESC");
+    $consulta->execute();
+    return $consulta->fetchAll(PDO::FETCH_ASSOC);
+}
+
+public static function VerUsoDeCocherasParaDiscapacitados($fecha_desde, $fecha_hasta)
+{
+    $objetoAccesoDato = AccesoDatos::DameUnObjetoAcceso();
+    $consulta = $objetoAccesoDato->RetornarConsulta("SELECT cochera.id as cochera, COUNT(*) AS cantidad , cochera.prioridad as prioridad FROM operacion_entrada INNER JOIN cochera ON operacion_entrada.idCochera = cochera.id && cochera.prioridad = 1 WHERE fecha_ingreso BETWEEN '$fecha_desde' AND '$fecha_hasta' GROUP BY idCochera ORDER BY `cantidad` DESC");
+    $consulta->execute();
+    return $consulta->fetchAll(PDO::FETCH_ASSOC);
+}
 
 
 

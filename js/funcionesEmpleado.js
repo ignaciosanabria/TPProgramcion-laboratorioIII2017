@@ -13,12 +13,12 @@ window.onload = function(){
      {
          StringEmpleados += "<tr>";
          StringEmpleados += "<td>"+arrayCajeros[i].legajo+"</td>";
-         StringEmpleados += "<td>"+arrayCajeros[i].nombre+"</td>";
+         StringEmpleados += "<td>"+arrayCajeros[i].nombre+" "+arrayCajeros[i].apellido+"</td>";
          StringEmpleados += "<td>"+arrayCajeros[i].mail+"</td>";
-         //str.replace(/./g, '*');
-        //  let clave = arrayCajeros[i].clave.replace(arrayCajeros[i].clave,"****");
          StringEmpleados += "<td>"+arrayCajeros[i].clave+"</td>";
          StringEmpleados += "<td>"+arrayCajeros[i].turno+"</td>";
+         StringEmpleados += "<td>"+arrayCajeros[i].habilitado+"</td>";
+         StringEmpleados += "<td>"+"<img src=../fotosEmpleados/"+arrayCajeros[i].foto+" width=100px height=100px></td>";
          StringEmpleados += "<td>"+ "<button class='btn btn-danger' onclick=VerEmpleadoOperaciones("+arrayCajeros[i].id+")><span class='glyphicon glyphicon-th-list'></span>Ver Operaciones</button>"+"</td>";
          StringEmpleados += "<td>"+ "<button class='btn btn-danger' onclick=VerEmpleadoSesiones("+arrayCajeros[i].id+")><span class='glyphicon glyphicon-th-list'></span>Ver Fechas de Logueo</button>"+"</td>";
          StringEmpleados += "<td>"+"<button class='btn btn-danger' onclick=BorrarEmpleado("+arrayCajeros[i].id+")><span class='glyphicon glyphicon-remove'></span>Borrar</button>"+"</td>";

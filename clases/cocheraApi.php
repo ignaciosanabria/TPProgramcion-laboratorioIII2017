@@ -39,19 +39,22 @@ public function TraerMasUtilizada($request, $response, $args)
 	{
       $datos = $request->getParsedBody();
       $cocherasUsadas = Cochera::TraerCocherasUtilizadas($datos["fecha_desde"],$datos["fecha_hasta"]);
-      $arrayTodasLasCocheras = Cochera::TraerTodasLasCocheras();
-      $resp["cocheras"] = $arrayTodasLasCocheras;
+      //$arrayTodasLasCocheras = Cochera::TraerTodasLasCocheras();
+      //$resp["cocheras"] = $arrayTodasLasCocheras;
       $resp["cocheraUsadas"] = $cocherasUsadas;
       $mayor = $cocherasUsadas[0]["cantidad"];
+      $arrayCocheras = array();
       for($i = 0; $i < count($cocherasUsadas); $i++)
       {
-          if($cocherasUsadas[$i]["cantidad"] > $mayor)
+          if($cocherasUsadas[$i]["cantidad"] >= $mayor)
              {
-                 $mayor = $cocherasUsadas[$i][$cantidad];
-                 $resp["cocheraMasUtilizada"] = $cocherasUsadas[$i]["cochera"];
-                 $resp["vecesDeUso"] = $cocherasUsadas[$i]["cantidad"];
+                 $mayor = $cocherasUsadas[$i]["cantidad"];
+                 //$resp["cocheraMasUtilizada"+"$i+1"] = json_encode($cocherasUsadas[$i]["cochera"]);
+                 array_push($arrayCocheras,$cocherasUsadas[$i]["cochera"]);
              }
       }
+    $resp["cocheraMasUsadas"] = json_encode($arrayCocheras);
+
       return $response->withJson($resp);
     }
 
@@ -59,21 +62,21 @@ public function TraerMasUtilizada($request, $response, $args)
     {
       $datos = $request->getParsedBody();
       $cocherasUsadas = Cochera::TraerCocherasUtilizadas($datos["fecha_desde"],$datos["fecha_hasta"]);
-      $arrayTodasLasCocheras = Cochera::TraerTodasLasCocheras();
-      $resp["cocheras"] = $arrayTodasLasCocheras;
+      //$arrayTodasLasCocheras = Cochera::TraerTodasLasCocheras();
+      //$resp["cocheras"] = $arrayTodasLasCocheras;
       $resp["cocheraUsadas"] = $cocherasUsadas;
+      $cocherasUsadas = array_reverse($cocherasUsadas);
       $menor = $cocherasUsadas[0]["cantidad"];
+      $arrayCocheras = array();
       for($i = 0; $i < count($cocherasUsadas); $i++)
       {
           if($cocherasUsadas[$i]["cantidad"] <= $menor)
              {
-                 $menor = $cocherasUsadas[$i][$cantidad];
-                 $cocheraMenor = $cocherasUsadas[$i]["cochera"];
-                 $vecesDeUso = $cocherasUsadas[$i]["cantidad"];
+                 $menor = $cocherasUsadas[$i]["cantidad"];
+                 array_push($arrayCocheras,$cocherasUsadas[$i]["cochera"]);
              }
       }
-      $resp["cocheraMenosUtilizada"] = $cocheraMenor;
-      $resp["vecesDeUso"] = $vecesDeUso;
+      $resp["cocheraMenosUsadas"] = json_encode($arrayCocheras);
       return $response->withJson($resp);
     }
 
@@ -81,22 +84,35 @@ public function TraerMasUtilizada($request, $response, $args)
     {
          $datos = $request->getParsedBody();
          $cocherasUsadas = Cochera::TraerCocherasUtilizadas($datos["fecha_desde"],$datos["fecha_hasta"]);
-         $arrayTodasLasCocheras = Cochera::TraerTodasLasCocheras();
-
-         for($i=0; $i < count($arrayTodasLasCocheras);$i++)
-         {
-             for($y = 0; $y<count($cocherasUsadas);$y++)
-             {
-                if($arrayTodasLasCocheras[$i]->id == $cocherasUsadas[$y]["cochera"])
-                {
-                    unset($arrayTodasLasCocheras[$i]);
-                }
-             }
-         }
-         $resp["cocherasSinUso"] = $arrayTodasLasCocheras;
+         $resp["cocheraUsadas"] = $cocherasUsadas;
+         $cocherasSinUso = Cochera::TraerCocherasSinUso($datos["fecha_desde"],$datos["fecha_hasta"]);
+         $resp["cocherasSinUso"] = $cocherasSinUso;
          return $response->withJson($resp);
     }
 
+    public function VerUsoDeCocherasSinPrioridad($request, $response, $args) 
+    {
+    $datos = $request->getParsedBody();
+    $arrayCocheras = Cochera::VerUsoDeCocherasSinPrioridad($datos["fecha_desde"], $datos["fecha_hasta"]);
+    for($i = 0; $i < count($arrayCocheras); $i++)
+    {
+        $arrayCocheras[$i]["prioridad"] = "sin prioridad";
+    }
+    $resp["cocherasSinPrioridad"] = $arrayCocheras;
+    return $response->withJson($resp);
+    }
+
+    public function VerUsoDeCocherasParaDiscapacitados($request, $response, $args)
+    {
+    $datos = $request->getParsedBody();
+    $arrayCocheras = Cochera::VerUsoDeCocherasParaDiscapacitados($datos["fecha_desde"], $datos["fecha_hasta"]);
+    for($i = 0; $i < count($arrayCocheras); $i++)
+    {
+        $arrayCocheras[$i]["prioridad"] = "discapacitado";
+    }
+    $resp["cocherasSinPrioridad"] = $arrayCocheras;
+    return $response->withJson($resp);
+    }
 
 
 }

@@ -40,13 +40,19 @@ function EnviarDatos()
          swal('Ocurrio algo inesperado!');
        });
      }
-  else
+  else if(dato.status == "400")
   {
      swal('USUARIO INCORRECTO!',
      'Revise su correo electrónico y/o su contraseña',
      'warning').then(function(){
       location.reload();
      });
+  }
+  else if(dato.status == "401")
+  {
+    swal('USUARIO INHABILITADO!',
+     'Comuniquese con su administrador!',
+     'warning');
   }
     },function(dato){
      console.log("ERROR"+dato);

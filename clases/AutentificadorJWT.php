@@ -23,7 +23,7 @@ class AutentificadorJWT
             'exp' => $ahora + (60*240), //TOKEN VENCE A LAS 4 horas
             'aud' => self::Aud(),
             'data' => $datos,
-            'app'=> "API REST CD 2017"
+            'app'=> "ESTACIONAMIENTO 2017"
         );
      
         return JWT::encode($payload, self::$claveSecreta);
@@ -49,10 +49,10 @@ class AutentificadorJWT
         }
         
         // si no da error,  verifico los datos de AUD que uso para saber de que lugar viene  
-        if($decodificado->aud !== self::Aud())
-        {
-            throw new Exception("No es el usuario valido");
-        }
+        // if($decodificado->aud !== self::Aud())
+        // {
+        //     throw new Exception("No es el usuario valido"+$decodificado->aud);
+        // }
     }
     
    

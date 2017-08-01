@@ -7,34 +7,42 @@ class loginApi
 {
 
 public function ValidarUsuario($request, $response, $args) {
-  $dateTime = new DateTime('now', new DateTimeZone('America/Argentina/Buenos_Aires'));
-  $fecha_inicio = $dateTime->format("m/d/Y  H:i A");
-//   $resp["hora"] = $fecha_inicio;
    $datos = $request->getParsedBody();
-   $resp["status"] = 400; 
-    if(Empleado::VerificarEmpleado($datos['mail'],$datos['clave']) == "ok")
+    if(Empleado::VerificarEmpleado($datos['mail'],$datos['clave']))
       {
-       $resp["status"] = 200;
        $empleado = Empleado::TraerElEmpleadoPorMailYClave($datos['mail'],$datos['clave']);
+       if($empleado->habilitado == "si")
+       {
+       $resp["status"] = 200;
        $cargos = Cargo_Empleado::TraerTodosLosCargos();
        $resp["id"] = $empleado->GetId();
        foreach($cargos as $cargoEmpleado)
        {
-           if($cargoEmpleado->id == $empleado->id)
+           if($cargoEmpleado->id == $empleado->cargo)
            {
                $resp["tipo"] = $cargoEmpleado->cargo;
                break;
            }
        }
-       $dateTime = new DateTime('now', new DateTimeZone('America/Argentina/Buenos_Aires'));
-       $fecha_ingreso = $dateTime->format("m/d/Y  H:i A");
        $sesion = new Sesion();
        $sesion->SetIdEmpleado($empleado->id);
+       $dateTime = new DateTime('now', new DateTimeZone('America/Argentina/Buenos_Aires'));
+       $fecha_ingreso = $dateTime->format("m/d/Y g:i A");
        $sesion->SetFechaIngreso($fecha_ingreso);
+    //    $sesion->SetFechaIngreso($datos["fecha_ingreso"]);
        Sesion::InsertarSesionInicio($sesion);
        $datosToken = array('mail' => $datos['mail'],'perfil' => $resp["tipo"]);
        $token = AutentificadorJWT::CrearToken($datosToken);
        $resp["token"] = $token; 
+       }
+       else
+       {
+           $resp["status"] = 401;
+       }
+    }
+    else
+    {
+        $resp["status"] = 400;
     }
 
    return $response->withJson($resp,200);
@@ -62,8 +70,9 @@ public function ValidarUsuario($request, $response, $args) {
            $resp["status"] = 400;
        }
         $dateTime = new DateTime('now', new DateTimeZone('America/Argentina/Buenos_Aires'));
-        $fecha_salida = $dateTime->format("m/d/Y  H:i A");
+        $fecha_salida = $dateTime->format("m/d/Y g:i A");
         $sesion->SetFechaSalida($fecha_salida);
+        // $sesion->SetFechaSalida($datos["fecha_salida"]);
         Sesion::ModificarSesionSalida($sesion);
         return $response->withJson($resp);
    }
@@ -78,20 +87,22 @@ public function ValidarUsuario($request, $response, $args) {
  }
 
 
-//   public function RegistrarAdministrador($request,$response,$args)
-//   {
-//       $data = $request->getParsedBody();
-//       $administrador = new Administrador();
-//       $administrador->SetMail($data["mail"]);
-//       $administrador->SetClave($data["clave"]);
-//       $administrador->SetNombre($data["nombre"]);
-//       $resp["status"] = 200;
-//       if(!Administrador::InsertarElAdministradorParametros($administrador))
-//       {
-//           $resp["status"] = 400;
-//       }
-//       return $response->withJson($resp,200);
-//   }
+  public function DesencriptarToken($request,$response,$args)
+  {
+      $arrayConToken = $request->getHeader('token');
+	  $token=$arrayConToken[0];
+      if($token != null)
+      {
+      $payload=AutentificadorJWT::ObtenerPayload($token);
+      $newResponse = $response->withJson($payload, 200);
+      }
+      else
+      {
+          $resp["status"] = 400;
+          $newResponse = $response->withJson($resp);
+      }
+      return $newResponse;
+  }
 
 }
 ?>
